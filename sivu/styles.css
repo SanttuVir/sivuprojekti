@@ -1,4 +1,4 @@
-/* General setup */
+/* Setuppi */
 *{
     box-sizing: border-box;
     margin: 0;
@@ -16,6 +16,7 @@
     position: sticky;
     top: 0;
     z-index: 999;
+    position: static;
 
 }
 
@@ -68,6 +69,12 @@ font-size: 2rem;
     text-decoration: none;
     padding: 0 1rem;
     height: 100%;
+    font-family: "Sour Gummy", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
 }
 
 .navbar__btn {
@@ -77,6 +84,7 @@ font-size: 2rem;
     align-items: center;
     padding: 0 1rem;
     width: 100%;
+    
 }
 
 .Button {
@@ -92,16 +100,24 @@ font-size: 2rem;
     border-radius: 4px;
     background: rgb(122, 26, 26);
     color: rgb(255, 255, 255);
+    font-family: "Sour Gummy", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
 }
 
 .Button:hover {
     background: rgb(78, 3, 3);
     transition: all 1s ease;
+    border-radius: 20px;
 }
 
 .navbar__links:hover {
     background: rgb(255, 62, 62);
     transition: all 1s ease;
+    border-radius: 20px;
 }
 
 @media screen and (max-width: 960px) {
@@ -203,54 +219,73 @@ font-size: 2rem;
 
 html, body {
     
-    overflow: hidden;
+    
     height: 100%;
     margin: 0;
     font-family: 'Playfair Display', serif;
 }
 
-/* Main container setup */
+/* Main container setuppi */
 .main__container {
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     width: 100%;
-    height: 30vh; /* Full viewport height */
-    background-image: url('images/namskutarallaa.jpg'); /* Path to your background image */
+    height: 50vh; 
+    background-image: url('images/namskutarallaa.jpg'); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
 /* Main content (text) inside the container */
-/* Main content (text) inside the container */
+
 .main__content {
     border-radius: 20px;
     background-color: rgba(0, 0, 0, 0.5); /* Black background with 50% opacity */
     position: absolute;
     text-align: center;
-    color: white; /* Text color */
+    color: white; 
     z-index: 2; /* Ensure the text is above the image */
     padding: 20px; /* Add some padding around the text */
+    
 }
 
 /* Main heading style */
 .main__content h1 {
     font-size: 3rem;
     margin: 0;
+    font-family: "Sour Gummy", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
 }
 
 /* Subheading style */
 .main__content h2 {
     font-size: 1.5rem;
     margin: 10px 0;
+    font-family: "Sour Gummy", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
 }
 
 /* Time style */
 .main__content h3 {
     font-size: 1.2rem;
     margin: 10px 0;
+    font-family: "Sour Gummy", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
 }
 
 /* Button style */
@@ -282,16 +317,143 @@ html, body {
 
 /* Styling for the image container */
 .main__img--container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
+   
 }
 
 .main__img--container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+
+.Tietoa {
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    gap: 20px; /* Adds space between the columns */
+    justify-content: space-between; /* Space between sections */
+    align-items: flex-start; /* Align items at the same vertical level */
+    flex-wrap: wrap; /* Allows wrapping */
+    margin: 2vw;
+}
+
+/* Style for each content section */
+.Poytavaraukset__content,
+.Linkit__content,
+.Lahjakortit__content {
+    height: auto; /* Let content adjust to its height */
+    flex: 1;
+    border-radius: 20px;
+    padding: 20px;
+    box-sizing: border-box; /* Make sure padding doesn't affect the width */
+    display: flex;
+    flex-direction: column; /* Align content within the sections */
+    justify-content: center; /* Center content vertically */
+}
+
+.Poytavaraukset__content {
+    background-color: rgba(0, 0, 0, 0.452); /* Grayish color */
+    text-align: left; /* Align text to the left */
+    max-width: 400px; /* Limit the width */
+    margin-right: auto; /* Align to the left */
+}
+
+.Linkit__content {
+    background-color: rgba(128, 128, 128, 0.432); /* Grey color */
+    text-align: center; /* Center the content */
+    max-width: 400px; /* Limit the width */
+    margin: 0 auto; /* Center the section horizontally */
+    height: 470px;
+}
+
+.Lahjakortit__content {
+    background-color: rgba(0, 128, 0, 0.596); /* Green color */
+    text-align: center; /* Align text to the right */
+    max-width: 400px; /* Limit the width */
+    margin-left: auto; /* Align to the right */
+    height: 470px;
+    
+}
+
+/* Style for the text inside Poytavaraukset__content */
+.Poytavaraukset__content h1 {
+    color: white;
+    font-size: 1.5rem; /* Smaller title */
+    margin-bottom: 10px;
+}
+
+.Poytavaraukset__content p {
+    color: white;
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
+/* Reservation form layout inside Poytavaraukset__content */
+.reservation-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Reduce space between the form elements */
+    padding: 10px;
+}
+
+.form-group {
+    width: 100%; /* Ensure inputs fill the width */
+}
+
+label {
+    font-size: 0.9rem;
+    color: white;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input {
+    width: 100%;
+    padding: 8px; /* Smaller padding */
+    margin-bottom: 8px; /* Reduce space below inputs */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 0.9rem;
+}
+
+button {
+    padding: 8px 16px; /* Smaller padding */
+    background-color: #ff6600;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #e65c00;
+}
+
+.Button__ajanvaraus {
+    font-size: 20px;
+}
+
+/* Media query for smaller screens (mobile/tablet) */
+@media screen and (max-width: 768px) {
+    .Tietoa {
+        flex-direction: column; /* Stack the sections vertically */
+        justify-content: center; /* Center the content vertically */
+        align-items: center; /* Center the content horizontally */
+        gap: 20px; /* Add space between stacked sections */
+    }
+
+    /* Make each content section take up full width on small screens */
+    .Poytavaraukset__content,
+    .Linkit__content,
+    .Lahjakortit__content {
+        width: 100%; /* Full width on smaller screens */
+        margin-bottom: 20px; /* Adds spacing between stacked sections */
+        flex: none; /* Prevent sections from stretching */
+        text-align: center; /* Center align for smaller screens */
+        max-width: none; /* Remove max-width constraint */
+    }
 }

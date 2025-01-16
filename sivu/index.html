@@ -9,11 +9,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playwrite+VN:wght@100..400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Jersey+15&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <nav class="navbar">
         <div class="navbar__container">
-            <a href="/" id="navbar__logo">Ruokaa</a>
+            <a href="/" id="navbar__logo">RuokaPaika</a>
             <div class="navbar__toggle" id="mobile-menu">
             <span class="bar"></span>
             <span class="bar"></span>
@@ -60,10 +64,55 @@
                 </button>
             </div>
             <div class="main__img--container">
-                <img src="your-image.jpg" alt="" id="main__img"> <!-- You can use an image here if needed -->
+                <img src="your-image.jpg" alt="" id="main__img">
             </div>
         </div>
     </div>
+    
+    <div class="Tietoa">
+        <div class="Poytavaraukset__content">
+            <h1>Pöytavaraukset</h1>
+            <p>Book your table now!</p>
+    <form class="reservation-form">
+        <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="date">Reservation Date</label>
+            <input type="date" id="date" name="date" required>
+        </div>
+
+        <div class="form-group">
+            <label for="time">Reservation Time</label>
+            <input type="time" id="time" name="time" required>
+        </div>
+
+        <div class="form-group">
+            <label for="people">Number of People</label>
+            <input type="number" id="people" name="people" min="1" max="20" required>
+        </div>
+
+        <button type="submit" class="button">Make Reservation</button>
+    </form>
+</div>
+            
+        
+      
+    <div class="Linkit__content">
+        <h1>Linkit</h1>
+        <p>Some links here!</p>
+        <p>moiioii</p>
+    </div>
+
+    <div class="Lahjakortit__content">
+        <h1>Lahjakortit</h1>
+        <p>Gift cards information here!</p>
+    </div>
+
+</div>
+
 
     <script src="app.js"></script>
 </body>
