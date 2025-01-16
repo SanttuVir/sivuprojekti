@@ -110,13 +110,13 @@ font-size: 2rem;
 
 .Button:hover {
     background: rgb(78, 3, 3);
-    transition: all 1s ease;
+    transition: all 0.5s ease;
     border-radius: 20px;
 }
 
 .navbar__links:hover {
     background: rgb(255, 62, 62);
-    transition: all 1s ease;
+    transition: all 0.5s ease;
     border-radius: 20px;
 }
 
@@ -125,7 +125,7 @@ font-size: 2rem;
         display: flex;
         justify-content: space-between;
         height: 80px;
-        z-index: 1;
+        z-index: 4;
         width: 100%;
         max-width: 1300px;
         padding: 0;
@@ -139,9 +139,9 @@ font-size: 2rem;
         position: absolute;
         top: -1000px;
         opacity: 0;
-        transition: all 0.5s ease;
+        transition: all 0.2s ease;
         height: 50vh;
-        z-index: -1;
+        z-index: 4;
         background-color: #131313;
     }
 
@@ -149,7 +149,7 @@ font-size: 2rem;
         background: #131313;
         top: 10%;
         opacity: 1;
-        transition: all 1s ease;
+        transition: all 0.5s ease;
         z-index: 99;
         height: 70vh;
         font-size: 1.6rem;
@@ -237,7 +237,7 @@ html, body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    z-index: -3;
+    z-index: 1;
 }
 
 /* Main content (text) inside the container */
@@ -299,6 +299,7 @@ html, body {
     text-decoration: none;
     border-radius: 5px;
     font-size: 1rem;
+    
 }
 
 .main__button a:hover {
@@ -457,5 +458,105 @@ button:hover {
         flex: none; /* Prevent sections from stretching */
         text-align: center; /* Center align for smaller screens */
         max-width: none; /* Remove max-width constraint */
+    }
+}
+
+.RestaurantInfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 2vw auto;
+    background-color: #f8f8f8; /* Light background for contrast */
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    max-width: 1200px; /* Center the section with a max width */
+}
+
+.RestaurantInfo__content {
+    text-align: center;
+    max-width: 800px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.RestaurantInfo__content h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.RestaurantInfo__content p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.Button__moreInfo {
+    padding: 10px 20px;
+    background-color: #5e0d0d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.Button__moreInfo:hover {
+    background-color: #e65c00;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .RestaurantInfo {
+        padding: 10px;
+    }
+
+    .RestaurantInfo__content h1 {
+        font-size: 1.5rem;
+    }
+
+    .RestaurantInfo__content p {
+        font-size: 0.9rem;
+    }
+}
+
+.Footer {
+    background-color: #333; /* Dark background for the footer */
+    color: white; /* Text color */
+    padding: 20px 0; /* Space around the footer content */
+    text-align: center; /* Align text to the center */
+}
+
+.Footer__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Equal spacing between sections */
+    gap: 20px; /* Add spacing between sections */
+    max-width: 1200px; /* Restrict the width of the footer */
+    margin: 0 auto; /* Center the footer content */
+    flex-wrap: wrap; /* Wrap sections on smaller screens */
+}
+
+.Footer__section {
+    flex: 1; /* All sections take equal space */
+    min-width: 200px; /* Prevent sections from shrinking too much */
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: left; /* Align text left by default */
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .Footer__container {
+        flex-direction: column; /* Stack sections vertically */
+        align-items: center; /* Center align sections on mobile */
+    }
+
+    .Footer__section {
+        text-align: center; /* Center-align text on smaller screens */
     }
 }
