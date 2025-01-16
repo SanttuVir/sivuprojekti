@@ -147,7 +147,7 @@ font-size: 2rem;
 
     .navbar__menu.active {
         background: #131313;
-        top: 100%;
+        top: 10%;
         opacity: 1;
         transition: all 1s ease;
         z-index: 99;
@@ -180,8 +180,8 @@ font-size: 2rem;
 
     #mobile-menu {
         position: absolute;
-        top: 20%;
-        right: 5%;
+        top: 4%;
+        right: 7%;
         transform: translate(5%, 20%);
     }
 
@@ -201,6 +201,7 @@ font-size: 2rem;
     .navbar__toggle .bar {
         display: block;
         cursor: pointer;
+        
     }
 
     #mobile-menu.is-active .bar:nth-child(2){
@@ -219,7 +220,6 @@ font-size: 2rem;
 
 html, body {
     
-    
     height: 100%;
     margin: 0;
     font-family: 'Playfair Display', serif;
@@ -237,6 +237,7 @@ html, body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    z-index: -3;
 }
 
 /* Main content (text) inside the container */
@@ -247,8 +248,9 @@ html, body {
     position: absolute;
     text-align: center;
     color: white; 
-    z-index: 2; /* Ensure the text is above the image */
+    z-index: 1; /* Ensure the text is above the image */
     padding: 20px; /* Add some padding around the text */
+    
     
 }
 
