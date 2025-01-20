@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,9 +30,13 @@
                     </a>
                 </li>
                 <li class="navbar__item">
-                    <a href="Menu.html" class="navbar__links"> 
-                        Menu 
-                    </a>
+                    <li class="navbar__item dropdown">
+                        <a href="Menu.html" class="navbar__links dropdown-button">Menu</a>
+                        <div class="dropdown-content">
+                            <a href="Alkuruoka.html">Alkuruoka</a>
+                            <a href="Pääruoka.html">Pääruoka</a>
+                            <a href="Jälkiruoka.html">Jälkiruoka</a>
+                       
                 </li>
                 <li class="navbar__item">
                     <a href="Buffetti.html" class="navbar__links"> 
@@ -75,6 +79,7 @@
             <p>Varaa pöytä itsellesi!</p>
     <form class="reservation-form">
         <div class="form-group">
+            <form action="joo.php" method="post">
             <label for="name">Koko nimi</label>
             <input type="text" id="name" name="name" placeholder="Enter your name" required>
         </div>
@@ -96,6 +101,7 @@
 
         <button type="submit" class="button">Varaa pöytä</button>
     </form>
+        
 </div>
             
         
