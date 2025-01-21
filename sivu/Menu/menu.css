@@ -1,0 +1,80 @@
+.Tausta {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+    height: 120vh;
+    background-attachment: fixed;
+    background-image: url(/sivu/images/tausta.jpeg);
+}
+.Alkuruoka {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 2vw auto;
+    color: white;
+    background-color: rgba(248, 248, 248, 0.5); /* Light background with 50% opacity */
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    max-width: 1200px; /* Center the section with a max width */
+}
+
+/* Content styling */
+.Alkuruoka__content {
+    text-align: center;
+    max-width: 800px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.Alkuruoka__content h1, 
+.Alkuruoka__content h2, 
+.Alkuruoka__content h3, 
+.Alkuruoka__content h4 {
+    color: #000000; /* Ensure text color remains fully visible */
+    opacity: 1; /* Full opacity for the text */
+    margin-bottom: 20px;
+}
+
+.Alkuruoka__content h1 {
+    font-size: 2rem;
+}
+
+.Alkuruoka__content h2 {
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+.Alkuruoka__content h3 {
+    font-size: 1.5rem;
+    margin-top: 20px;
+}
+
+.Alkuruoka__content h4 {
+    font-size: 1rem;
+    color: #000000; /* Slightly lighter color for price */
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .Alkuruoka {
+        padding: 10px;
+    }
+
+    .Alkuruoka__content h1 {
+        font-size: 1.5rem;
+    }
+
+    .Alkuruoka__content h2 {
+        font-size: 0.9rem;
+    }
+
+    .Alkuruoka__content h3 {
+        font-size: 1.2rem;
+    }
+
+    .Alkuruoka__content h4 {
+        font-size: 0.8rem;
+    }
+}

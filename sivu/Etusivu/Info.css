@@ -1,0 +1,62 @@
+.RestaurantInfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 2vw auto;
+    background-color: #f8f8f8; /* Light background for contrast */
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    max-width: 1200px; /* Center the section with a max width */
+}
+
+.RestaurantInfo__content {
+    text-align: center;
+    max-width: 800px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.RestaurantInfo__content h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.RestaurantInfo__content p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.Button__moreInfo {
+    font-size: 1.2rem;
+    background-color: rgb(175, 0, 0);
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: white;
+
+    
+    
+}
+
+.Button__moreInfo:hover {
+    background-color: #e65c00;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .RestaurantInfo {
+        padding: 10px;
+    }
+
+    .RestaurantInfo__content h1 {
+        font-size: 1.5rem;
+    }
+
+    .RestaurantInfo__content p {
+        font-size: 0.9rem;
+    }
+}
