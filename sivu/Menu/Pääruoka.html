@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>webbisivu</title>
     <link rel="stylesheet" href="/sivu/navigointi.css">
-    <link rel="stylesheet" href="/sivu/Menu/Pääruoka.css">
+    <link rel="stylesheet" href="/sivu/Menu/Menu.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playwrite+VN:wght@100..400&display=swap" rel="stylesheet">
@@ -39,21 +39,23 @@
                             <a href="Jälkiruoka.html">Jälkiruoka</a>
                          
                 </li>
-                <li class="navbar__item">
-                    <a href="Buffetti.html" class="navbar__links"> 
-                        Coctails ja Viinit
-                    </a>
+                <li class="navbar__item dropdown">
+                    <span class="navbar__links dropdown-button">Juomat</span>
+                <div class="dropdown-content">
+                    <a href="/sivu/Juomat/Aperatiivit.html">Aperatiivit</a>
+                    <a href="/sivu/Juomat/Jälkiruokadrinkit.html">Jälkiruokadrinkit</a>
+                    <a href="/sivu/Juomat/Viinit.html">Viinit</a>
                 </li>
                 <li class="navbar__btn">
-                    <a href="Palaute.html" class="Button"> 
+                    <a href="/sivu/Palaute/Palaute.html" class="Button"> 
                         Palaute
                     </a>
                 </li>
             </ul>
         </div>
     </nav>
-            <section class="Pääruoka">
-                <div class="Pääruoka__content">
+    <section class="Kontsa">
+        <div class="Kontsa__content">
                     <h1>Alkuruoat</h1>
                     
                     <h3>
