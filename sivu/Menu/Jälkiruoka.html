@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>webbisivu</title>
     <link rel="stylesheet" href="/sivu/navigointi.css">
+    <link rel="stylesheet" href="/sivu/Menu/Jälkiruoka.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playwrite+VN:wght@100..400&display=swap" rel="stylesheet">
@@ -15,6 +16,7 @@
 
 </head>
 <body>
+    <div class ="Tausta">
     <nav class="navbar">
         <div class="navbar__container">
             <a href="/" id="navbar__logo">RuokaPaika</a>
@@ -31,7 +33,7 @@
                 </li>
                 <li class="navbar__item">
                     <li class="navbar__item dropdown">
-                        <a href="Menu.html" class="navbar__links dropdown-button">Menu</a>
+                        <span class="navbar__links dropdown-button">Menu</span>
                         <div class="dropdown-content">
                             <a href="Alkuruoka.html">Alkuruoka</a>
                             <a href="Pääruoka.html">Pääruoka</a>
@@ -40,13 +42,8 @@
                 </li>
                 <li class="navbar__item">
                     <a href="Buffetti.html" class="navbar__links"> 
-                        Buffetti
+                        Coctails ja Viinit
                     </a>
-
-                    <li class="navbar__item">
-                        <a href="Tilaa.html" class="navbar__links"> 
-                            Tilaa                        
-                        </a>
                 </li>
                 <li class="navbar__btn">
                     <a href="Palaute.html" class="Button"> 
@@ -55,4 +52,36 @@
                 </li>
             </ul>
         </div>
+    </nav>
+            <section class="Jälkiruoka">
+                <div class="Jälkiruoka__content">
+                    <h1>Jälkiruoat</h1>
+                    
+                    <h3>
+                        Jäätelö
+                    </h3>
+                    <h2>Kylmää</h2>
+                    <h4>
+                        34$
+                    </h4>
+                    <h3>
+                        Kakku
+                    </h3>
+                    <h2>iso</h2>
+                    <h4>
+                        34$
+                    </h4>
+                    <h3>
+                        muffini
+                    </h3>
+                    <h2>herkku</h2>
+                    <h4>
+                        34$
+                    </h4>
+                    </a>
+                </div>
+            </section>
+            
+            </div>
+        <script src="/sivu/app.js"></script>
     </nav>
