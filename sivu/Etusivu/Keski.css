@@ -41,6 +41,11 @@
     height: 470px;
 }
 
+.Linkit__content img {
+    width: 50px;
+}
+
+
 .Lahjakortit__content {
     background-color: rgba(0, 128, 0, 0.596); /* Green color */
     text-align: center; /* Align text to the right */
