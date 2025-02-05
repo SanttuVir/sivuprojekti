@@ -1,21 +1,42 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    // Get form data
-    $name = htmlspecialchars($_POST['name']);
-    $date = htmlspecialchars($_POST['date']);
-    $time = htmlspecialchars($_POST['time']);
-    $people = (int)$_POST['people'];
+// Tietokannan yhteyden tiedot
+$servername = "localhost";
+$username = "root";  // Käyttäjänimi
+$password = "";      // Salasana
+$dbname = "ravintola"; // Tietokannan nimi
 
-    // Basic validation
-    if (!empty($name) && !empty($date) && !empty($time) && $people > 0 && $people <= 8) {
-        // Simulate saving data (you can replace this with database operations)
-        echo "<h2>Varaus onnistui!</h2>";
-        echo "<p>Koko nimi: $name</p>";
-        echo "<p>Päivämäärä: $date</p>";
-        echo "<p>Aika: $time</p>";
-        echo "<p>Ihmisiä: $people</p>";
+// Yhteyden luominen
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Tarkistetaan, että yhteys on onnistunut
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Tarkistetaan, onko lomake lähetetty
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $name = $_POST['name'];
+    $date = $_POST['date'];
+    $time = $_POST['time'];
+    $people = $_POST['people'];
+
+    // Suojaamme SQL-injektioita
+    $name = $conn->real_escape_string($name);
+    $date = $conn->real_escape_string($date);
+    $time = $conn->real_escape_string($time);
+    $people = $conn->real_escape_string($people);
+
+    // SQL-kysely pöytavarauksen lisäämiseksi
+    $sql = "INSERT INTO reservations (name, date, time, people) 
+            VALUES ('$name', '$date', '$time', '$people')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "Pöytävaraus tallennettu onnistuneesti!";
     } else {
-        echo "<h2>Virhe: Täytä kaikki kentät oikein.</h2>";
+        echo "Virhe: " . $sql . "<br>" . $conn->error;
     }
 }
+
+// Suljetaan yhteys
+$conn->close();
 ?>
