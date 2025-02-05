@@ -3,7 +3,7 @@
 $servername = "localhost";
 $username = "root";  // Käyttäjänimi
 $password = "";      // Salasana
-$dbname = "ravintola"; // Tietokannan nimi
+$dbname = "poytavaraus"; // Tietokannan nimi
 
 // Yhteyden luominen
 $conn = new mysqli($servername, $username, $password, $dbname);
