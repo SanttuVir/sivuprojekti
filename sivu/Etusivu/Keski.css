@@ -9,7 +9,6 @@
     align-items: flex-start; /* Align items at the same vertical level */
     flex-wrap: wrap; /* Allows wrapping */
     margin: 2vw;
-    
 }
 
 
@@ -32,13 +31,13 @@
     width: 100%; /* Tee saman levyinen kuin muut lomakekentät */
     padding: 8px;
     font-size: 16px;
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     border: 1px solid #000000;
     border-radius: 5px;
     box-shadow: 0 7px 10px rgba(0, 0, 0, 0.1); /* Sama varjostus kuin input-kentissä */
 }
 .Poytavaraukset__content {
-    background-color: rgb(255, 255, 255); /* Grayish color */
+    background-color: rgba(255, 255, 255, 0.486); /* Grayish color */
     text-align: left; /* Align text to the left */
     max-width: 400px; /* Limit the width */
     margin-right: auto; /* Align to the left */
