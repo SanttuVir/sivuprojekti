@@ -19,16 +19,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $date = $_POST['date'];
     $time = $_POST['time'];
     $people = $_POST['people'];
+    $email = $_POST['email'];
 
     // Suojaamme SQL-injektioita
     $name = $conn->real_escape_string($name);
     $date = $conn->real_escape_string($date);
     $time = $conn->real_escape_string($time);
     $people = $conn->real_escape_string($people);
+    $email = $conn->real_escape_string($email);
 
     // SQL-kysely pöytavarauksen lisäämiseksi
-    $sql = "INSERT INTO reservations (name, date, time, people) 
-            VALUES ('$name', '$date', '$time', '$people')";
+    $sql = "INSERT INTO reservations (name, date, time, people, email) 
+            VALUES ('$name', '$date', '$time', '$people','$email')";
 
     if ($conn->query($sql) === TRUE) {
         echo "Pöytävaraus tallennettu onnistuneesti!";
