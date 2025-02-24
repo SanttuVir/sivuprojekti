@@ -1,4 +1,7 @@
-
+svg {
+    display: block;
+    margin-bottom: 100px; /* Adjust if needed */
+}
 
 html, body {
     
