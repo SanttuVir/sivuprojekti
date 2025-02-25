@@ -1,0 +1,34 @@
+Arvostelu tietokanta
+....................
+CREATE DATABASE feedback_db;
+
+USE feedback_db;
+
+CREATE TABLE feedbacks (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    feedback TEXT NOT NULL,
+    rating INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+........................................................
+tietokanta chekkaa ip osoitteen 
+...............................
+ALTER TABLE feedbacks ADD COLUMN user_ip VARCHAR(255);
+........................................................
+poytavarauksien tietokanta 
+..........................
+CREATE DATABASE IF NOT EXISTS poytavaraus;
+
+-- Use the database
+USE poytavaraus;
+
+-- Create the reservations table
+CREATE TABLE IF NOT EXISTS reservations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    date DATE NOT NULL,
+    time TIME NOT NULL,
+    people INT NOT NULL,
+    email VARCHAR(255) NOT NULL
+);
