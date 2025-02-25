@@ -93,8 +93,17 @@
         
         <div class="form-group">
             <label for="date">Päivämäärä</label>
-            <input type="date" id="date" name="date" required>
-        </div>
+    <input type="date" id="date" name="date" required min="" />
+</div>
+
+<script>
+    // Get tomorrow's date and set it as the min attribute
+    const dateInput = document.getElementById('date');
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1); // Set the date to tomorrow
+    const formattedDate = tomorrow.toISOString().split('T')[0]; // Format date to YYYY-MM-DD
+    dateInput.min = formattedDate;
+</script>
 
         <div class="form-group">
             <label for="time">Valitse aika:</label>
