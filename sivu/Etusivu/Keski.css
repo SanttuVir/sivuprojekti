@@ -1,5 +1,8 @@
 
-
+.highlight-text {
+    color: red;  /* Change this color as per your preference */
+    font-weight: bold;  /* Optional: make the text bold */
+}
 
 
 .Tietoa {

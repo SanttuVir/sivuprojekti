@@ -15,6 +15,7 @@ if ($conn->connect_error) {
 
 // Tarkistetaan, onko lomake lähetetty
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Otetaan vastaan lomakkeen tiedot
     $name = $_POST['name'];
     $date = $_POST['date'];
     $time = $_POST['time'];
@@ -28,14 +29,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $people = $conn->real_escape_string($people);
     $email = $conn->real_escape_string($email);
 
-    // SQL-kysely pöytavarauksen lisäämiseksi
-    $sql = "INSERT INTO reservations (name, date, time, people, email) 
-            VALUES ('$name', '$date', '$time', '$people','$email')";
+    // Tarkistetaan, että käyttäjä ei ole jo tehnyt varauksia saman ajan sisällä
+    $checkQuery = "SELECT * FROM reservations WHERE email = '$email' AND date = '$date' AND time = '$time'";
+    $result = $conn->query($checkQuery);
 
-    if ($conn->query($sql) === TRUE) {
-        echo "Pöytävaraus tallennettu onnistuneesti!";
+    if ($result->num_rows > 0) {
+        echo "Olet jo tehnyt varauksen tälle päivälle ja ajalle.";
     } else {
-        echo "Virhe: " . $sql . "<br>" . $conn->error;
+        // SQL-kysely pöytavarauksen lisäämiseksi
+        $sql = "INSERT INTO reservations (name, date, time, people, email) 
+                VALUES ('$name', '$date', '$time', '$people', '$email')";
+
+        if ($conn->query($sql) === TRUE) {
+            echo "Pöytävaraus tallennettu onnistuneesti!";
+        } else {
+            echo "Virhe: " . $sql . "<br>" . $conn->error;
+        }
     }
 }
 
