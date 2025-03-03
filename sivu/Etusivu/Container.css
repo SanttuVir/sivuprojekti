@@ -1,14 +1,14 @@
+*{
+    font-family: "Cormorant Unicase", serif;
+    font-weight: 500;
+    font-style: normal;
+}
 svg {
     display: block;
     margin-bottom: 100px; /* Adjust if needed */
 }
 
-html, body {
-    
-    height: 100%;
-    margin: 0;
-    font-family: 'Playfair Display', serif;
-}
+
 
 
 /* Main container setuppi */
@@ -46,10 +46,6 @@ html, body {
 .main__content h1 {
     font-size: 3rem;
     margin: 0;
-    font-family: "Sour Gummy", serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
     font-variation-settings:
       "wdth" 100;
 }
@@ -58,10 +54,6 @@ html, body {
 .main__content h2 {
     font-size: 1.5rem;
     margin: 10px 0;
-    font-family: "Sour Gummy", serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
     font-variation-settings:
       "wdth" 100;
 }
@@ -70,10 +62,6 @@ html, body {
 .main__content h3 {
     font-size: 1.2rem;
     margin: 10px 0;
-    font-family: "Sour Gummy", serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
     font-variation-settings:
       "wdth" 100;
 }
@@ -86,11 +74,6 @@ html, body {
     border-radius: 20px;
     text-decoration: none;
     color: white;
-
-    font-family: "Sour Gummy", serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
     font-variation-settings:
       "wdth" 100;
     

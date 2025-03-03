@@ -4,6 +4,9 @@
     font-weight: bold;  /* Optional: make the text bold */
 }
 
+.Keski{
+    background-color: #7c0404;
+}
 
 .Tietoa {
     display: flex;
@@ -22,7 +25,6 @@
 .Poytavaraukset__content,
 .Linkit__content,
 .Lahjakortit__content {
-    height: auto; /* Let content adjust to its height */
     flex: 1;
     border-radius: 20px;
     padding: 20px;
@@ -30,6 +32,7 @@
     display: flex;
     flex-direction: column; /* Align content within the sections */
     justify-content: center; /* Center content vertically */
+    height: 600px;
 }
 
 .wide-select {
@@ -54,7 +57,6 @@
     text-align: center; /* Center the content */
     max-width: 400px; /* Limit the width */
     margin: 0 auto; /* Center the section horizontally */
-    height: 470px;
     padding: 20px;
     box-shadow: 0 7px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
   
@@ -78,7 +80,6 @@
     text-align: center; /* Align text to the right */
     max-width: 400px; /* Limit the width */
     margin-left: auto; /* Align to the right */
-    height: 470px;
     box-shadow: 0 7px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
 }
 

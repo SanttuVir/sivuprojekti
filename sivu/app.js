@@ -9,6 +9,22 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    let prevScrollpos = window.pageYOffset;
+    const navbar = document.querySelector(".navbar");
+
+    window.onscroll = function() {
+        let currentScrollPos = window.pageYOffset;
+        if (prevScrollpos > currentScrollPos) {
+            navbar.style.top = "0";
+        } else {
+            navbar.style.top = "-100px"; // Adjust this based on the navbar height
+        }
+        prevScrollpos = currentScrollPos;
+    };
+});
+
+    
+
     const feedbackForm = document.getElementById('feedbackForm');
     const reviewsContainer = document.getElementById('reviewsContainer');
 
@@ -32,4 +48,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-});
+
