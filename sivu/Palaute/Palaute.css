@@ -1,12 +1,12 @@
-.feedbakki{
+.feedbakki {
     font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 .feedback-form-container {
@@ -95,6 +95,9 @@ textarea {
     padding: 10px;
     border-radius: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 300px; /* Set a max height for reviews container */
+    overflow-y: auto; /* Allow scrolling if content exceeds max height */
+    padding-bottom: 20px; /* Add padding at the bottom to avoid content touching footer */
 }
 
 .review {

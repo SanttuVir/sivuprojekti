@@ -73,15 +73,16 @@
                 <div class="form-group">
                     <label>Arvostelusi:</label>
                     <div class="rating">
-                        <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 stars">★</label>
-                        <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 stars">★</label>
-                        <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 stars">★</label>
-                        <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 stars">★</label>
-                        <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star">★</label>
+                        <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+                        <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+                        <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+                        <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+                        <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
                     </div>
                 </div>
                 <button type="submit" class="submit-btn">Lähetä</button>
             </form>
+    
             <div class="reviews-container" id="reviewsContainer">
                 <h2>Palautteet</h2>
             </div>
@@ -90,29 +91,28 @@
     
     <script>
         document.getElementById('feedbackForm').addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevent the form from submitting normally
-    
+            event.preventDefault(); // Prevent default form submission
+        
             const name = document.getElementById('name').value;
             const feedback = document.getElementById('feedback').value;
             const rating = document.querySelector('input[name="rating"]:checked') ? document.querySelector('input[name="rating"]:checked').value : null;
-    
+        
             if (name && feedback && rating) {
                 const formData = new FormData();
                 formData.append('name', name);
                 formData.append('feedback', feedback);
                 formData.append('rating', rating);
-    
+        
                 fetch('Palaute.php', {
                     method: 'POST',
                     body: formData
                 })
                 .then(response => response.json())
                 .then(data => {
+                    alert(data.message);
                     if (data.status === 'success') {
-                        alert(data.message); // Display success message
-                        document.getElementById('feedbackForm').reset(); // Reset the form
-                    } else {
-                        alert(data.message); // Display error message
+                        document.getElementById('feedbackForm').reset();
+                        loadReviews(); // Reload reviews after submission
                     }
                 })
                 .catch(error => {
@@ -123,6 +123,32 @@
                 alert('Please fill in all fields and provide a rating.');
             }
         });
+        
+        // Function to fetch and display reviews
+        function loadReviews() {
+            fetch('Palaute.php')
+            .then(response => response.json())
+            .then(reviews => {
+                const reviewsContainer = document.getElementById('reviewsContainer');
+                reviewsContainer.innerHTML = "<h2>Palautteet</h2>";
+        
+                reviews.forEach(review => {
+                    const reviewElement = document.createElement('div');
+                    reviewElement.classList.add('review');
+        
+                    reviewElement.innerHTML = `
+                        <p><strong>${review.name}</strong> (${review.created_at})</p>
+                        <p class="rating">${'★'.repeat(review.rating)}</p>
+                        <p>${review.feedback}</p>
+                    `;
+                    reviewsContainer.appendChild(reviewElement);
+                });
+            })
+            .catch(error => console.error('Error loading reviews:', error));
+        }
+        
+        // Load reviews on page load
+        document.addEventListener('DOMContentLoaded', loadReviews);
     </script>
         <script src="/sivu/app.js"></script>
     </div>
