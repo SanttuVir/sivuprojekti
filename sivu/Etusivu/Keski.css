@@ -1,6 +1,6 @@
 
 .highlight-text {
-    background-color: #7c0404;
+   color: red;
     font-weight: bold;  /* Optional: make the text bold */
 }
 
@@ -38,7 +38,7 @@
 .wide-select {
     width: 100%; /* Tee saman levyinen kuin muut lomakekentät */
     padding: 8px;
-    font-size: 16px;
+    font-size: 18px;
     background-color: rgb(255, 255, 255);
     border: 1px solid #000000;
     border-radius: 5px;
@@ -110,7 +110,7 @@
 }
 
 label {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: rgb(0, 0, 0);
     margin-bottom: 5px;
     display: block;
@@ -123,7 +123,7 @@ input {
     margin-bottom: 8px; /* Reduce space below inputs */
     border-radius: 5px;
     border: 1px solid #000000;
-    font-size: 0.9rem;
+    font-size: 1rem;
     box-shadow: 0 7px 10px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
 }
 

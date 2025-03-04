@@ -1,8 +1,9 @@
 *{
-    font-family: "Cormorant Unicase", serif;
-    font-weight: 500;
+    font-family: "Almendra", serif;
+    font-weight: 400;
     font-style: normal;
 }
+
 svg {
     display: block;
     margin-bottom: 100px; /* Adjust if needed */
