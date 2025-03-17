@@ -2,9 +2,6 @@ html, body {
     height: 100%;
     margin: 0;
     position: relative; /* For absolute positioning inside */
-}
-
-.Tausta {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -13,17 +10,21 @@ html, body {
     background-attachment: fixed;
     background-image: url(/sivu/images/tausta.jpeg);
 }
+
+
 .Kontsa {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
     margin: 2vw auto;
-    color: white;
-    background-color: rgba(248, 248, 248, 0.5); /* Light background with 50% opacity */
+    color: rgb(255, 255, 255);
+    background-color: rgba(248, 248, 248, 0.077); /* Light background with 50% opacity */
     border-radius: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
     max-width: 1200px; /* Center the section with a max width */
+    backdrop-filter: saturate(180%) blur(2px);
+    
 }
 
 /* Content styling */
