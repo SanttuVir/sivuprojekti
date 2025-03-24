@@ -10,9 +10,9 @@ html, body {
     color: white; /* Text color */
     padding: 20px 0; /* Space around the footer content */
     text-align: center; /* Align text to the center */
-    position: absolute;
-    bottom: 0; /* Fix to the bottom of the screen */
+    position: relative; /* Changed to relative to avoid covering content */
     width: 100%; /* Ensure the footer spans the full width */
+    margin-top: 20px; /* Adds space between content and footer */
 }
 
 .Footer__container {
@@ -26,7 +26,6 @@ html, body {
 }
 
 .Footer__section {
-
     min-width: 200px; /* Prevent sections from shrinking too much */
     padding: 10px;
     box-sizing: border-box;
