@@ -1,12 +1,14 @@
-.Tausta {
+body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     z-index: 0;
-    height: 120vh;
+    height: 100%;
     background-attachment: fixed;
     background-image: url(/sivu/images/elegant-red-wine-bottle-glass-rustic-wooden-table-capturing-classic-cozy-essence_1293074-164455.avif);
+
 }
+
 .Kontsa {
     display: flex;
     justify-content: center;

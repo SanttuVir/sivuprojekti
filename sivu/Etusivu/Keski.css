@@ -4,9 +4,14 @@
     font-weight: bold;  /* Optional: make the text bold */
 }
 
-.Keski{
-    background-color: #7c0404;
+.Keski {
+    background-image: url(/sivu/images/namskutarallaa.jpg);
+    background-size: 100%;
+    background-attachment: fixed;
+    background-color: rgba(0, 0, 0, 0.24); /* Dark overlay */
+    background-blend-mode: darken;
 }
+
 
 .Tietoa {
     display: flex;
@@ -17,6 +22,7 @@
     align-items: flex-start; /* Align items at the same vertical level */
     flex-wrap: wrap; /* Allows wrapping */
     margin: 2vw;
+
 }
 
 
@@ -33,6 +39,7 @@
     flex-direction: column; /* Align content within the sections */
     justify-content: center; /* Center content vertically */
     height: 600px;
+    backdrop-filter: saturate(180%) blur(2px);
 }
 
 .wide-select {
