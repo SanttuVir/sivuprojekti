@@ -7,54 +7,96 @@
     content="width=device-width, 
     initial-scale=1.0">
     <title>webbisivu</title>
-    <link rel="stylesheet" href="/sivu/navigointi.css">
+    <link rel="stylesheet" href="/sivu/Tilaa/Admin.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playwrite+VN:wght@100..400&display=swap" rel="stylesheet">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jersey+15&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
-</head>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playwrite+VN:wght@100..400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+15&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"></head>
 <body>
-    
-    <div id="main__container"></div>
-    <nav class="navbar">
-        <div class="navbar__container">
-            <a href="/" id="navbar__logo">Ruokaa</a>
-            <div class="navbar__toggle" id="mobile-menu">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-            </div>
-            <ul class="navbar__menu">
-                <li class="navbar__item">
-                    <a href="/sivu/Etusivu/index.html" class="navbar__links"> 
-                        Kotisivu
-                    </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="Menu.html" class="navbar__links"> 
-                        Menu 
-                    </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="Buffetti.html" class="navbar__links"> 
-                        Buffetti
-                    </a>
+   
+    <div class="alkuruoka">
+        <div class="alkuruoka-form-container">
+            <h1>Alkuruoka</h1>
+            <form id="alkuruokaForm">
+                <div class="form-group">
+                    <label for="name">Tuotteen Nimi:</label>
+                    <input type="text" id="name" name="name" placeholder="Tuotteen nimi" required>
+                </div>
+                <div class="form-group">
+                    <label for="tietoa">Kirjoita tähän tuotteen tietoa :</label>
+                    <textarea id="tietoa" name="tietoa" placeholder="Tiedon kirjoitus" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Lisää</button>
 
-                    <li class="navbar__item">
-                        <a href="Tilaa.html" class="navbar__links"> 
-                            Tilaa                        
-                        </a>
-                </li>
-                <li class="navbar__btn">
-                    <a href="Palaute.html" class="Button"> 
-                        Palaute
-                    </a>
-                </li>
-            </ul>
+    
+            <div class="Alkuruoka" id="alkuruokaContainer">
+                <h2>Alkuruoka</h2>
+            </div>
         </div>
-    </nav>
-    <script src="app.js"></script>
-</body>
-</html>
+    </div>
+    
+    <script>
+       document.getElementById('alkuruokaForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Estetään oletuslomakkeen lähetys
+
+    const name = document.getElementById('name').value;
+    const tietoa = document.getElementById('tietoa').value;
+
+    if (name && tietoa) {
+        const formData = new FormData();
+        formData.append('name', name);
+        formData.append('tietoa', tietoa);
+
+        fetch('Admin.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            if (data.status === 'success') {
+                document.getElementById('alkuruokaForm').reset();
+                loadAlkuruoka(); // Päivitetään lista uusilla tiedoilla
+            }
+        })
+        .catch(error => {
+            console.error('Virhe:', error);
+            alert('Tietojen lähetyksessä tapahtui virhe.');
+        });
+    } else {
+        alert('Täytä kaikki kentät.');
+    }
+});
+
+// Funktio hakee ja näyttää alkuruoat
+function loadAlkuruoka() {
+    fetch('Admin.php')
+    .then(response => response.json())
+    .then(alkuruoat => {
+        const alkuruokaContainer = document.getElementById('alkuruokaContainer');
+        alkuruokaContainer.innerHTML = "<h2>Alkuruoka</h2>";
+
+        alkuruoat.forEach(alkuruoka => {
+            const alkuruokaElement = document.createElement('div');
+            alkuruokaElement.classList.add('alkuruoka-item');
+            
+            alkuruokaElement.innerHTML = `
+                <p><strong>${alkuruoka.name}</strong></p>
+                <p>${alkuruoka.tietoa}</p>
+            `;
+            
+            alkuruokaContainer.appendChild(alkuruokaElement);
+        });
+    })
+    .catch(error => console.error('Virhe alkuruokien latauksessa:', error));
+}
+
+// Ladataan alkuruoat sivun latauksen yhteydessä
+document.addEventListener('DOMContentLoaded', loadAlkuruoka);
+    </script>
+        <script src="/sivu/admin.js"></script>
+    </div>
+    </div>
+    </footer>
