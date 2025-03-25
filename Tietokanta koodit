@@ -32,3 +32,11 @@ CREATE TABLE IF NOT EXISTS reservations (
     people INT NOT NULL,
     email VARCHAR(255) NOT NULL
 );
+.....................................................
+admin pagen menun muokkaukseen tietokanta 
+
+CREATE TABLE menu (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    tietoa TEXT NOT NULL
+);
