@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
     <meta charset="UTF-8">
-    <meta name="viewport" 
-    content="width=device-width, 
-    initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>webbisivu</title>
     <link rel="stylesheet" href="/sivu/Tilaa/Admin.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,9 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Jersey+15&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"></head>
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
 <body>
-   
     <div class="alkuruoka">
         <div class="alkuruoka-form-container">
             <h1>Alkuruoka</h1>
@@ -28,75 +25,113 @@
                     <label for="tietoa">Kirjoita tähän tuotteen tietoa :</label>
                     <textarea id="tietoa" name="tietoa" placeholder="Tiedon kirjoitus" rows="4" required></textarea>
                 </div>
-                <button type="submit" class="submit-btn">Lisää</button>
-
-    
+                <button type="submit" id="submitButton" class="submit-btn">Lisää</button>
+            </form>
             <div class="Alkuruoka" id="alkuruokaContainer">
                 <h2>Alkuruoka</h2>
             </div>
         </div>
     </div>
-    
+
     <script>
-       document.getElementById('alkuruokaForm').addEventListener('submit', function (event) {
-    event.preventDefault(); // Estetään oletuslomakkeen lähetys
+        // Lomakkeen lähetyksen käsittely
+        document.getElementById('alkuruokaForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Estetään oletuslomakkeen lähetys
 
-    const name = document.getElementById('name').value;
-    const tietoa = document.getElementById('tietoa').value;
+            const name = document.getElementById('name').value;
+            const tietoa = document.getElementById('tietoa').value;
+            const button = document.getElementById('submitButton');
 
-    if (name && tietoa) {
-        const formData = new FormData();
-        formData.append('name', name);
-        formData.append('tietoa', tietoa);
+            // Tarkistetaan, onko lomake tyhjä
+            if (name && tietoa) {
+                const formData = new FormData();
+                formData.append('name', name);
+                formData.append('tietoa', tietoa);
 
-        fetch('Admin.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert(data.message);
-            if (data.status === 'success') {
-                document.getElementById('alkuruokaForm').reset();
-                loadAlkuruoka(); // Päivitetään lista uusilla tiedoilla
+                if (button.textContent === 'Lisää') {
+                    // Lisätään uusi alkuruoka
+                    fetch('Admin.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        if (data.status === 'success') {
+                            document.getElementById('alkuruokaForm').reset();
+                            loadAlkuruoka(); // Päivitetään lista uusilla tiedoilla
+                            button.textContent = 'Lisää'; // Palautetaan nappi alkuperäiseksi
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Virhe:', error);
+                        alert('Tietojen lähetyksessä tapahtui virhe.');
+                    });
+                } else {
+                    // Muokataan olemassa olevaa alkuruokaa
+                    const id = document.getElementById('submitButton').getAttribute('data-id');
+                    formData.append('id', id);
+
+                    fetch('Admin.php', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        if (data.status === 'success') {
+                            document.getElementById('alkuruokaForm').reset();
+                            loadAlkuruoka(); // Päivitetään lista uusilla tiedoilla
+                            button.textContent = 'Lisää'; // Palautetaan nappi alkuperäiseksi
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Virhe:', error);
+                        alert('Tietojen lähetyksessä tapahtui virhe.');
+                    });
+                }
+            } else {
+                alert('Täytä kaikki kentät.');
             }
-        })
-        .catch(error => {
-            console.error('Virhe:', error);
-            alert('Tietojen lähetyksessä tapahtui virhe.');
         });
-    } else {
-        alert('Täytä kaikki kentät.');
-    }
-});
 
-// Funktio hakee ja näyttää alkuruoat
-function loadAlkuruoka() {
-    fetch('Admin.php')
-    .then(response => response.json())
-    .then(alkuruoat => {
-        const alkuruokaContainer = document.getElementById('alkuruokaContainer');
-        alkuruokaContainer.innerHTML = "<h2>Alkuruoka</h2>";
+        // Funktio hakee ja näyttää alkuruoat
+        function loadAlkuruoka() {
+            fetch('Admin.php')
+            .then(response => response.json())
+            .then(alkuruoat => {
+                const alkuruokaContainer = document.getElementById('alkuruokaContainer');
+                alkuruokaContainer.innerHTML = "<h2>Alkuruoka</h2>";
 
-        alkuruoat.forEach(alkuruoka => {
-            const alkuruokaElement = document.createElement('div');
-            alkuruokaElement.classList.add('alkuruoka-item');
-            
-            alkuruokaElement.innerHTML = `
-                <p><strong>${alkuruoka.name}</strong></p>
-                <p>${alkuruoka.tietoa}</p>
-            `;
-            
-            alkuruokaContainer.appendChild(alkuruokaElement);
-        });
-    })
-    .catch(error => console.error('Virhe alkuruokien latauksessa:', error));
-}
+                alkuruoat.forEach(alkuruoka => {
+                    const alkuruokaElement = document.createElement('div');
+                    alkuruokaElement.classList.add('alkuruoka-item');
+                    
+                    alkuruokaElement.innerHTML = `
+                        <p><strong>${alkuruoka.name}</strong></p>
+                        <p>${alkuruoka.tietoa}</p>
+                        <button onclick="editAlkuruoka(${alkuruoka.id}, '${alkuruoka.name}', '${alkuruoka.tietoa}')">Muokkaa</button>
+                    `;
+                    
+                    alkuruokaContainer.appendChild(alkuruokaElement);
+                });
+            })
+            .catch(error => console.error('Virhe alkuruokien latauksessa:', error));
+        }
 
-// Ladataan alkuruoat sivun latauksen yhteydessä
-document.addEventListener('DOMContentLoaded', loadAlkuruoka);
+        // Funktio muokkaa alkuruokaa
+        function editAlkuruoka(id, name, tietoa) {
+            document.getElementById('name').value = name;
+            document.getElementById('tietoa').value = tietoa;
+
+            // Muutetaan lomakkeen lähetyksessä käytettävä ID
+            const button = document.getElementById('submitButton');
+            button.textContent = 'Muokkaa'; // Vaihdetaan nappi "Muokkaa"-napiksi
+            button.setAttribute('data-id', id); // Lisätään ID muokkaukselle
+        }
+
+        // Ladataan alkuruoat sivun latauksen yhteydessä
+        document.addEventListener('DOMContentLoaded', loadAlkuruoka);
     </script>
-        <script src="/sivu/admin.js"></script>
-    </div>
-    </div>
-    </footer>
+</body>
+</html>

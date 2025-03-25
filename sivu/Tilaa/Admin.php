@@ -7,7 +7,7 @@ header("Access-Control-Allow-Headers: Content-Type");
 $servername = "localhost";
 $username = "root"; // Muuta tarvittaessa
 $password = ""; // Muuta tarvittaessa
-$dbname = "ravintola"; // Muuta tarvittaessa
+$dbname = "menudb"; // Muuta tarvittaessa
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -16,7 +16,21 @@ if ($conn->connect_error) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!empty($_POST['name']) && !empty($_POST['tietoa'])) {
+    if (isset($_POST['id'])) {
+        // Muokkaa olemassa olevaa alkuruokaa
+        $id = $conn->real_escape_string($_POST['id']);
+        $name = $conn->real_escape_string($_POST['name']);
+        $tietoa = $conn->real_escape_string($_POST['tietoa']);
+
+        $sql = "UPDATE menu SET name = '$name', tietoa = '$tietoa' WHERE id = '$id'";
+
+        if ($conn->query($sql) === TRUE) {
+            echo json_encode(["status" => "success", "message" => "Alkuruoka päivitetty"]);
+        } else {
+            echo json_encode(["status" => "error", "message" => "Virhe päivittäessä tietoja: " . $conn->error]);
+        }
+    } else {
+        // Lisää uusi alkuruoka
         $name = $conn->real_escape_string($_POST['name']);
         $tietoa = $conn->real_escape_string($_POST['tietoa']);
 
@@ -27,8 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             echo json_encode(["status" => "error", "message" => "Virhe lisättäessä tietoja: " . $conn->error]);
         }
-    } else {
-        echo json_encode(["status" => "error", "message" => "Täytä kaikki kentät"]);
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $sql = "SELECT * FROM menu";
@@ -42,4 +54,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $conn->close();
-?>
