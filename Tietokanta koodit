@@ -40,3 +40,11 @@ CREATE TABLE menu (
     name VARCHAR(255) NOT NULL,
     tietoa TEXT NOT NULL
 );
+
+USE menudb;
+
+CREATE TABLE menu (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    tietoa TEXT
+);
