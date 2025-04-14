@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
     // Replace with the correct path to your Admin.php endpoint
     fetch("http://localhost/sivu/Tilaa/Admin.php") 
@@ -27,3 +28,4 @@ document.addEventListener("DOMContentLoaded", function () {
             container.innerHTML = '<p>Virhe haettaessa tietoja.</p>';
         });
 });
+
