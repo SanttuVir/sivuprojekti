@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 VALUES ('$name', '$date', '$time', '$people', '$email')";
 
         if ($conn->query($sql) === TRUE) {
-            echo "Pöytävaraus tallennettu onnistuneesti!";
+            echo  "Pöytävaraus tallennettu onnistuneesti!";
         } else {
             echo "Virhe: " . $sql . "<br>" . $conn->error;
         }

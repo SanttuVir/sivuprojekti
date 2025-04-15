@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     container.innerHTML += `
                         <div class="alkuruoka-item">
                             <h3>${item.name}</h3>
-                            <p>${item.tietoa}</p>
+                            <h2>${item.tietoa}</h2>
                             <h4>${item.hinta} €</h4> <!-- Display the price -->
                         </div>
                     `;
