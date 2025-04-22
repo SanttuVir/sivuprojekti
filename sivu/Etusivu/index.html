@@ -74,7 +74,7 @@
     <div class="Poytavaraukset__content">
         <h1 id="poytavarauksetText">Pöytavaraukset</h1> 
         <p>Varaa pöytä itsellesi!</p>
-        <form class="reservation-form" id="reservationForm" action="/sivu/Etusivu/joo.php" method="post">
+        <form class="reservation-form" id="reservationForm" action="/sivu/Etusivu/poytavaraus.php" method="post">
                 <div class="form-group">
                     <label for="name">Nimi</label>
             <input type="text" id="name" name="name" placeholder="Nimi" required>
@@ -134,10 +134,18 @@
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.text()) // Adjust this depending on what your PHP returns
+            .then(response => response.text()) // Assuming PHP returns a message with details
             .then(data => {
-                document.getElementById('response').innerHTML = 
-                    `<p style="color: green;">Varaus onnistui! Kiitos.</p>`; // or show actual message from PHP
+                // Parsing the PHP response, which should contain the reservation details
+                const reservationDetails = JSON.parse(data); // Expected format: { message: 'Varaus päivälle...'}
+                
+                if (reservationDetails.success) {
+                    document.getElementById('response').innerHTML = 
+                        `<p style="color: green;">Varaus onnistui! ${reservationDetails.message}</p>`;
+                } else {
+                    document.getElementById('response').innerHTML = 
+                        `<p style="color: red;">${reservationDetails.message}</p>`;
+                }
                 form.reset(); // Reset the form if you want
             })
             .catch(error => {
@@ -146,8 +154,8 @@
                     `<p style="color: red;">Jotain meni pieleen. Yritä uudelleen.</p>`;
             });
         });
-
-        </script>
+    </script>
+    
         
     
 </div>

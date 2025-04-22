@@ -1,13 +1,19 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Replace with the correct path to your Admin.php endpoint
-    fetch("http://localhost/sivu/Tilaa/Admin.php") 
-        .then(response => response.json())
+    const container = document.querySelector('.Kontsa__content');
+    
+    // Fetch data from PHP endpoint
+    fetch("http://localhost/sivu/Admin/Admin.php")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch data');
+            }
+            return response.json();
+        })
         .then(data => {
-            const container = document.querySelector('.Kontsa__content');
             container.innerHTML = '<h1>Alkuruoat</h1>'; // Clear default content and add heading
 
-            // Check if data is an array (in case there is no data, prevent errors)
-            if (Array.isArray(data)) {
+            // Check if data is an array (to handle case where no data is returned)
+            if (Array.isArray(data) && data.length > 0) {
                 data.forEach(item => {
                     container.innerHTML += `
                         <div class="alkuruoka-item">
@@ -22,8 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         })
         .catch(error => {
-            console.error('Virhe haettaessa tietoja:', error);
-            const container = document.querySelector('.Kontsa__content');
+            console.error('Error fetching data:', error);
             container.innerHTML = '<p>Virhe haettaessa tietoja.</p>';
         });
 });
