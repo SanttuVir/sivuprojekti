@@ -52,3 +52,10 @@ CREATE TABLE alkuruoat (
     tietoa TEXT NOT NULL,
     hinta DECIMAL(10, 2) NOT NULL
 );   "
+
+CREATE TABLE paaruoka (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    tietoa TEXT NOT NULL,
+    hinta DECIMAL(10, 2) NOT NULL
+);   "
