@@ -51,11 +51,39 @@ CREATE TABLE alkuruoat (
     name VARCHAR(255) NOT NULL,
     tietoa TEXT NOT NULL,
     hinta DECIMAL(10, 2) NOT NULL
-);   "
+);   
 
 CREATE TABLE paaruoka (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     tietoa TEXT NOT NULL,
     hinta DECIMAL(10, 2) NOT NULL
-);   "
+);   
+
+CREATE TABLE jalkiruoka (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    tietoa TEXT NOT NULL,
+    hinta DECIMAL(10, 2) NOT NULL
+);   
+
+CREATE TABLE aperatiivit (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    tietoa TEXT NOT NULL,
+    hinta DECIMAL(10, 2) NOT NULL
+);   
+
+CREATE TABLE jalkiruokadrinkit (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    tietoa TEXT NOT NULL,
+    hinta DECIMAL(10, 2) NOT NULL
+);   
+
+CREATE TABLE viinit (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    tietoa TEXT NOT NULL,
+    hinta DECIMAL(10, 2) NOT NULL
+);   
