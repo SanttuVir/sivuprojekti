@@ -2,15 +2,15 @@ document.addEventListener("DOMContentLoaded", function () {
     const container = document.querySelector('.Kontsa__content');
     
     // Fetch data from PHP endpoint
-    fetch("http://localhost/sivu/Admin/alkuruoka.php")
+    fetch("http://localhost/sivu/Admin/viinit.php")
         .then(response => {
             if (!response.ok) {
-                throw new Error('Failed to fetch data');
+                throw new Error('Failed to fetch data'); 
             }
             return response.json();
         })
         .then(data => {
-            container.innerHTML = '<h1>Alkuruoat</h1>'; // Clear default content and add heading
+            container.innerHTML = '<h1>Viinit</h1>'; // Clear default content and add heading
 
             // Check if data is an array (to handle case where no data is returned)
             if (Array.isArray(data) && data.length > 0) {

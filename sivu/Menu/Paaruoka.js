@@ -1,8 +1,9 @@
+
 document.addEventListener("DOMContentLoaded", function () {
     const container = document.querySelector('.Kontsa__content');
     
     // Fetch data from PHP endpoint
-    fetch("http://localhost/sivu/Admin/alkuruoka.php")
+    fetch("http://localhost/sivu/Admin/paaruoka.php")
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch data');
@@ -10,13 +11,13 @@ document.addEventListener("DOMContentLoaded", function () {
             return response.json();
         })
         .then(data => {
-            container.innerHTML = '<h1>Alkuruoat</h1>'; // Clear default content and add heading
+            container.innerHTML = '<h1>Pääruoat</h1>'; // Clear default content and add heading
 
             // Check if data is an array (to handle case where no data is returned)
             if (Array.isArray(data) && data.length > 0) {
                 data.forEach(item => {
                     container.innerHTML += `
-                        <div class="alkuruoka-item">
+                        <div class="paaruoka-item">
                             <h3>${item.name}</h3>
                             <h2>${item.tietoa}</h2>
                             <h4>${item.hinta} €</h4> <!-- Display the price -->

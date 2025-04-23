@@ -23,7 +23,7 @@ html, body {
     border-radius: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
     max-width: 1200px; /* Center the section with a max width */
-    backdrop-filter: saturate(180%) blur(2px);
+    backdrop-filter: saturate(180%) blur(4px);
 }
 
 /* Content styling */
