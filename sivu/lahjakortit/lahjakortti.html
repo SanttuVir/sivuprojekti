@@ -1,0 +1,36 @@
+<meta charset="UTF-8">
+<div class="lahjakortti">
+    <link rel="stylesheet" href="/sivu/lahjakortit/lahjakortti.css">
+    <div class="Lahjakortti__content">
+        <h1>Lahjakortit</h1>
+        <p>Osta lahjakortti lahjaksi tai itsellesi!</p>
+        <form class="lahjakortti-form" action="/sivu/lahjakortti." method="post">
+            <div class="form-group">
+                <label for="name">Nimi</label>
+                <input type="text" id="name" name="name" placeholder="Anna nimesi" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Sähköpostiosoite</label>
+                <input type="email" id="email" name="email" placeholder="Syötä sähköpostiosoitteesi" required>
+            </div>
+
+            <div class="form-group">
+                <label for="amount">Summa (€)</label>
+                <select id="amount" name="amount" required>
+                    <option value="25">25 €</option>
+                    <option value="50">50 €</option>
+                    <option value="100">100 €</option>
+                    <option value="200">200 €</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Viesti (valinnainen)</label>
+                <textarea id="message" name="message" placeholder="Lisää viesti lahjakortille (valinnainen)"></textarea>
+            </div>
+
+            <button type="submit" class="button">Osta lahjakortti</button>
+        </form>
+    </div>
+</div>

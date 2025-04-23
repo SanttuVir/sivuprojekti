@@ -1,0 +1,46 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    position: relative; /* For absolute positioning inside */
+}
+
+/* Your existing footer styling */
+.Footer {
+    background-color: #333333; /* Dark background for the footer */
+    color: white; /* Text color */
+    padding: 20px 0; /* Space around the footer content */
+    text-align: center; /* Align text to the center */
+    position: relative; /* Changed to relative to avoid covering content */
+    width: 100%; /* Ensure the footer spans the full width */
+    margin-top: 20px; /* Adds space between content and footer */
+    backdrop-filter: saturate(180%) blur(2px);
+}
+
+.Footer__container {
+    display: flex;
+    flex-direction: row; /* Horizontal layout */
+    justify-content: space-evenly; /* Even spacing between sections */
+    align-items: center; /* Vertically align the items at the same level */
+    max-width: 1200px; /* Restrict the width of the footer */
+    margin: 0 auto; /* Center the footer content */
+    flex-wrap: wrap; /* Allow wrapping of content on smaller screens */
+}
+
+.Footer__section {
+    min-width: 200px; /* Prevent sections from shrinking too much */
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: left; /* Align text left by default */
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    .Footer__container {
+        flex-direction: column; /* Stack sections vertically on small screens */
+        align-items: center; /* Center align sections on mobile */
+    }
+
+    .Footer__section {
+        text-align: center; /* Center-align text on smaller screens */
+    }
+}

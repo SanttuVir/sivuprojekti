@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" 
+    content="width=device-width, 
+    initial-scale=1.0">
+    <title>webbisivu</title>
+    <link rel="stylesheet" href="/sivu/navigointi.css">
+    <link rel="stylesheet" href="/sivu/Etusivu/footer.css">
+    <link rel="stylesheet" href="/sivu/Palaute/Palaute.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playwrite+VN:wght@100..400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+15&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"></head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="/" id="navbar__logo">RuokaPaika</a>
+            <div class="navbar__toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item">
+                    <a href="/sivu/Etusivu/index.html" class="navbar__links"> 
+                        Kotisivu
+                    </a>
+                </li>
+                <li class="navbar__item">
+                    <li class="navbar__item dropdown">
+                        <span class="navbar__links dropdown-button">Menu</span>
+                        <div class="dropdown-content">
+                            <a href="/sivu/Menu/Alkuruoka.html">Alkuruoka</a>
+                            <a href="/sivu/Menu/Pääruoka.html">Pääruoka</a>
+                            <a href="/sivu/Menu/Jälkiruoka.html">Jälkiruoka</a>
+                       
+                </li>
+                <li class="navbar__item">
+                    <li class="navbar__item dropdown">
+                        <span class="navbar__links dropdown-button">Juomat</span>
+                    <div class="dropdown-content">
+                        <a href="/sivu/Juomat/Aperatiivit.html">Aperatiivit</a>
+                        <a href="/sivu/Juomat/Jälkiruokadrinkit.html">Jälkiruokadrinkit</a>
+                        <a href="/sivu/Juomat/Viinit.html">Viinit</a>
+
+                    
+                </li>
+                <li class="navbar__btn">
+                    <a href="/sivu/Palaute/Palaute.html" class="Button"> 
+                        Palaute
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="feedbakki">
+        <div class="feedback-form-container">
+            <h1>Jätä Palaute!</h1>
+            <form id="feedbackForm">
+                <div class="form-group">
+                    <label for="name">Nimi:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="feedback">Kirjoita palautetta :</label>
+                    <textarea id="feedback" name="feedback" placeholder="Write your feedback here..." rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Arvostelusi:</label>
+                    <div class="rating">
+                        <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+                        <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+                        <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+                        <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+                        <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Lähetä</button>
+            </form>
+    
+            <div class="reviews-container" id="reviewsContainer">
+                <h2>Palautteet</h2>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('feedbackForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent default form submission
+        
+            const name = document.getElementById('name').value;
+            const feedback = document.getElementById('feedback').value;
+            const rating = document.querySelector('input[name="rating"]:checked') ? document.querySelector('input[name="rating"]:checked').value : null;
+        
+            if (name && feedback && rating) {
+                const formData = new FormData();
+                formData.append('name', name);
+                formData.append('feedback', feedback);
+                formData.append('rating', rating);
+        
+                fetch('Palaute.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    if (data.status === 'success') {
+                        document.getElementById('feedbackForm').reset();
+                        loadReviews(); // Reload reviews after submission
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('There was an error submitting your feedback.');
+                });
+            } else {
+                alert('Please fill in all fields and provide a rating.');
+            }
+        });
+        
+        // Function to fetch and display reviews
+        function loadReviews() {
+            fetch('Palaute.php')
+            .then(response => response.json())
+            .then(reviews => {
+                const reviewsContainer = document.getElementById('reviewsContainer');
+                reviewsContainer.innerHTML = "<h2>Palautteet</h2>";
+        
+                reviews.forEach(review => {
+                    const reviewElement = document.createElement('div');
+                    reviewElement.classList.add('review');
+        
+                    reviewElement.innerHTML = `
+                        <p><strong>${review.name}</strong> (${review.created_at})</p>
+                        <p class="rating">${'★'.repeat(review.rating)}</p>
+                        <p>${review.feedback}</p>
+                    `;
+                    reviewsContainer.appendChild(reviewElement);
+                });
+            })
+            .catch(error => console.error('Error loading reviews:', error));
+        }
+        
+        // Load reviews on page load
+        document.addEventListener('DOMContentLoaded', loadReviews);
+    </script>
+        <script src="/sivu/app.js"></script>
+    </div>
+    </div>
+    <footer class="Footer">
+        <footer class="Footer">
+            <div class="Footer__container">
+                <div class="Footer__section"><p>Namskis Ravintola-Namskis Restaurant - Puukatu 2 - Helsinki 00100</p> </div>
+                <div class="Footer__section">+358 044 5897357</div>
+                <div class="Footer__section">Puukatu 2</div>
+                <div class="Footer__section"></div>
+                
+            </div>
+
+        
+    </footer>

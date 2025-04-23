@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Webbisivu</title>
+    <link rel="stylesheet" href="/sivu/Admin/Admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playwrite+VN:wght@100..400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+15&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="category-container">
+        <div class="category-form-container">
+            <h1 id="categoryTitle">Tuotteen Lisääminen ja Muokkaaminen</h1>
+            <form id="categoryForm">
+                <!-- Category Selection Dropdown -->
+                <div class="form-group">
+                    <label for="category">Valitse Kategoria:</label>
+                    <select id="category" name="category" required>
+                        <option value="alkuruoka">Alkuruoka</option>
+                        <option value="paaruoka">Pääruoka</option>
+                        <option value="jalkiruoka">Jälkiruoka</option>
+                        <option value="aperatiivit">Aperatiivit</option>
+                        <option value="jalkiruokadrinkit">Jälkiruokadrinkit</option>
+                        <option value="viinit">Viinit</option>
+                    </select>
+                </div>
+    
+                <div class="form-group">
+                    <label for="name">Tuotteen Nimi:</label>
+                    <input type="text" id="name" name="name" placeholder="Tuotteen nimi" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="tietoa">Kirjoita tähän tuotteen tietoa:</label>
+                    <textarea id="tietoa" name="tietoa" placeholder="Tiedon kirjoitus" rows="4" required></textarea>
+                </div>
+    
+                <div class="form-group">
+                    <label for="hinta">Hinta (€):</label>
+                    <input type="number" id="hinta" name="hinta" step="0.01" placeholder="Esim. 9.99" required>
+                </div>
+    
+                <button type="submit" id="submitButton" class="submit-btn">Lisää</button>
+            </form>
+    
+            <div class="category" id="categoryContainer">
+                <h2>Alkuruoka</h2>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentCategory = 'alkuruoka';  // Default category
+    
+        // Handle form submission (add or update item)
+        document.getElementById('categoryForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+    
+            const category = document.getElementById('category').value;  // Get selected category
+            const name = document.getElementById('name').value;
+            const tietoa = document.getElementById('tietoa').value;
+            const hinta = document.getElementById('hinta').value;
+            const button = document.getElementById('submitButton');
+    
+            if (name && tietoa && hinta) {
+                const formData = new FormData();
+                formData.append('category', category);  // Send category with form data
+                formData.append('name', name);
+                formData.append('tietoa', tietoa);
+                formData.append('hinta', hinta);
+    
+                if (button.textContent === 'Lisää') {
+                    // Add new item
+                    fetch(`${category}.php`, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        if (data.status === 'success') {
+                            document.getElementById('categoryForm').reset();
+                            loadCategory(category); // Reload items after adding
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Virhe:', error);
+                        alert('Tietojen lähetyksessä tapahtui virhe.');
+                    });
+                } else {
+                    // Edit existing item
+                    const id = button.getAttribute('data-id');
+                    formData.append('id', id);
+    
+                    fetch(`${category}.php`, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert(data.message);
+                        if (data.status === 'success') {
+                            document.getElementById('categoryForm').reset();
+                            loadCategory(category); // Reload items after editing
+                            button.textContent = 'Lisää'; // Reset button to 'Lisää'
+                            button.removeAttribute('data-id');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Virhe:', error);
+                        alert('Tietojen lähetyksessä tapahtui virhe.');
+                    });
+                }
+            } else {
+                alert('Täytä kaikki kentät.');
+            }
+        });
+    
+        // Load category items from the database
+        function loadCategory(category) {
+            fetch(`${category}.php`)
+            .then(response => response.json())
+            .then(items => {
+                const categoryContainer = document.getElementById('categoryContainer');
+                categoryContainer.innerHTML = `<h2>${category.charAt(0).toUpperCase() + category.slice(1)}</h2>`;
+    
+                items.forEach(item => {
+                    const categoryItem = document.createElement('div');
+                    categoryItem.classList.add('category-item');
+    
+                    categoryItem.innerHTML = `
+                        <p><strong>${item.name}</strong> - <em>${item.hinta} €</em></p>
+                        <p>${item.tietoa}</p>
+                        <button onclick="editItem(${item.id}, '${category}', '${item.name}', '${item.tietoa}', '${item.hinta}')">Muokkaa</button>
+                        <button onclick="deleteItem(${item.id}, '${category}')" style="color:red;">Poista</button>
+                    `;
+    
+                    categoryContainer.appendChild(categoryItem);
+                });
+            })
+            .catch(error => console.error('Virhe kategorian latauksessa:', error));
+        }
+    
+        // Edit item
+        function editItem(id, category, name, tietoa, hinta) {
+            document.getElementById('category').value = category;  // Set the category when editing
+            document.getElementById('name').value = name;
+            document.getElementById('tietoa').value = tietoa;
+            document.getElementById('hinta').value = hinta;
+    
+            const button = document.getElementById('submitButton');
+            button.textContent = 'Muokkaa';
+            button.setAttribute('data-id', id);
+        }
+    
+        // Delete item
+        function deleteItem(id, category) {
+            if (confirm('Haluatko varmasti poistaa tämän tuotteen?')) {
+                fetch(`${category}.php?id=${id}`, {
+                    method: 'DELETE'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    if (data.status === 'success') {
+                        loadCategory(category); // Reload items after deletion
+                    }
+                })
+                .catch(error => {
+                    console.error('Virhe poistossa:', error);
+                    alert('Tuotteen poistaminen epäonnistui.');
+                });
+            }
+        }
+    
+        // Load items for the current category
+        document.addEventListener('DOMContentLoaded', () => loadCategory(currentCategory));
+    
+        // Dynamically switch categories (just an example, you can create buttons for this)
+        document.getElementById('category').addEventListener('change', function () {
+            currentCategory = this.value;  // Update the current category
+            loadCategory(currentCategory); // Load the corresponding items
+        });
+    </script>
+    
+    
+</body>
+</html>
