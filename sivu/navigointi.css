@@ -158,7 +158,7 @@
         opacity: 1;
         transition: all 0.2s ease;
         z-index: 99;
-        height: 75vh;
+        height: 60vh;
         font-size: 1.6rem;
         padding: inherit;
     }

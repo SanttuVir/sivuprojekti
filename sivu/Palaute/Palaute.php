@@ -1,5 +1,4 @@
 <?php
-// Database connection
 $host = 'localhost';
 $dbname = 'feedback_db';
 $username = 'root';
@@ -16,7 +15,6 @@ try {
 $user_ip = $_SERVER['REMOTE_ADDR'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Prevent duplicate feedback using IP address
     $stmt = $pdo->prepare("SELECT * FROM feedbacks WHERE user_ip = :user_ip");
     $stmt->bindParam(':user_ip', $user_ip);
     $stmt->execute();
@@ -30,7 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $feedback = htmlspecialchars($_POST['feedback']);
     $rating = (int)$_POST['rating'];
 
-    // Insert feedback into the database
     $sql = "INSERT INTO feedbacks (name, feedback, rating, user_ip) VALUES (:name, :feedback, :rating, :user_ip)";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':name', $name);
@@ -45,10 +42,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Fetch and return reviews
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $stmt = $pdo->query("SELECT name, feedback, rating, created_at FROM feedbacks ORDER BY created_at DESC");
+    $stmt = $pdo->query("SELECT id, name, feedback, rating, created_at FROM feedbacks ORDER BY created_at DESC");
     $reviews = $stmt->fetchAll(PDO::FETCH_ASSOC);
     echo json_encode($reviews);
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+    parse_str(file_get_contents("php://input"), $_DELETE);
+    $id = (int)$_DELETE['id'];
+
+    $stmt = $pdo->prepare("DELETE FROM feedbacks WHERE id = :id");
+    $stmt->bindParam(':id', $id);
+
+    if ($stmt->execute()) {
+        echo json_encode(['status' => 'success', 'message' => 'Feedback deleted.']);
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Deletion failed.']);
+    }
 }
 ?>
