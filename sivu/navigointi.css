@@ -65,7 +65,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0 1rem;
     width: 100%;
 }
 
@@ -155,12 +154,13 @@
 
     .navbar__menu.active {
         background: #131313;
-        top: 10%;
+        top: 100%;
         opacity: 1;
         transition: all 0.2s ease;
         z-index: 99;
         height: 75vh;
         font-size: 1.6rem;
+        padding: inherit;
     }
 
     .navbar__toggle .bar {
@@ -178,16 +178,15 @@
 
     .navbar__links {
         text-align: center;
-        padding: 1rem;
+        padding: inherit;
         width: 100%;
         display: table;
     }
 
     #mobile-menu {
         position: absolute;
-        top: 4%;
         right: 7%;
-        transform: translate(5%, 20%);
+        transform: translate(5%, 80%);
     }
 
     .navbar__toggle .bar {
