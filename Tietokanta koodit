@@ -87,3 +87,22 @@ CREATE TABLE viinit (
     tietoa TEXT NOT NULL,
     hinta DECIMAL(10, 2) NOT NULL
 );   
+.......................................................
+Yhteydenotto 
+
+CREATE DATABASE contact_form;
+
+USE contact_form;
+
+CREATE TABLE submissions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    subject VARCHAR(255),
+    message TEXT NOT NULL,
+    submitted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+ALTER TABLE submissions ADD ip_address VARCHAR(45) NOT NULL;
+ALTER TABLE submissions ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+..........................................................
