@@ -14,6 +14,7 @@ html, body {
     width: 100%; /* Ensure the footer spans the full width */
     margin-top: 20px; /* Adds space between content and footer */
     backdrop-filter: saturate(180%) blur(2px);
+
 }
 
 .Footer__container {

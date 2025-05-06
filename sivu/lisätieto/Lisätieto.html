@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>webbisivu</title>
     <link rel="stylesheet" href="/sivu/navigointi.css">
+    <link rel="stylesheet" href="/sivu/lisätieto/lisätieto.css">
     <link rel="stylesheet" href="/sivu/Etusivu/footer.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,7 +19,7 @@
 <body>
     <nav class="navbar">
         <div class="navbar__container">
-            <a href="/" id="navbar__logo">RuokaPaika</a>
+            <a href="/" id="navbar__logo">Namskis</a>
             <div class="navbar__toggle" id="mobile-menu">
             <span class="bar"></span>
             <span class="bar"></span>
@@ -26,7 +27,7 @@
             </div>
             <ul class="navbar__menu">
                 <li class="navbar__item">
-                    <a href="index.html" class="navbar__links"> 
+                    <a href="/sivu/Etusivu/index.html" class="navbar__links"> 
                         Kotisivu
                     </a>
                 </li>
@@ -57,9 +58,76 @@
             </ul>
         </div>
     </nav>
+    <div class="main-content">
+    <div class="info-box">
+        <!-- Contact Details -->
+        <div class="contact-details">
+            <h1>Puukatu 2</h1>
+            <h1>Helsinki 00100</h1>
+            <h1>+358 044 5897357</h1>
+            <h1>Namskisrestaurant@gmail.com</h1>
+            <h1>Aukiolot Ma-Su klo: 12.00-22.00</h1>
+        </div>
 
-    <h1>moi</h1>
+        <!-- Contact Form -->
+        <div class="Yhteydenotto">
+            <h2>Ota yhteyttä</h2>
+        
+            <!-- Display the success or error message here -->
+            <div id="responseMessage"></div>
+        
+            <!-- The form -->
+            <form id="contactForm">
+                <label for="name">Nimi:</label>
+                <input type="text" id="name" name="name" required>
+        
+                <label for="email">Sähköposti:</label>
+                <input type="email" id="email" name="email" required>
 
+                <label for="phone">Puhelinnumero:</label>
+                <input type="tel" id="phone" name="phone" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" >
+        
+                <label for="subject">Aihe:</label>
+                <input type="text" id="subject" name="subject">
+        
+                <label for="message">Viesti:</label>
+                <textarea id="message" name="message" rows="6" required></textarea>
+        
+                <button type="submit">Lähetä</button>
+            </form>
+        </div>
+        
+        <script>
+            // Event listener for form submission
+            document.getElementById('contactForm').addEventListener('submit', function(event) {
+                event.preventDefault(); // Prevent form from reloading the page
+        
+                // Get form data
+                let formData = new FormData(this);
+        
+                // Send data using fetch (AJAX)
+                fetch('yhteydenotto.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())  // Parse the JSON response
+                .then(data => {
+                    // Display success or error message
+                    let responseMessage = document.getElementById('responseMessage');
+                    if (data.success) {
+                        responseMessage.innerHTML = `<p style="font-size: 1.5rem; color: green; background-color: white; padding: 10px; border-radius: 5px;">${data.message}</p>`;
+                    } else {
+                        responseMessage.innerHTML = `<p  style="font-size: 1.5rem; color: red; background-color: white; padding: 10px; border-radius: 5px;">${data.message}</p>`;
+                    }
+                })
+                .catch(error => {
+                    // Handle any error that occurred during the fetch request
+                    document.getElementById('responseMessage').innerHTML = `<p style="color: red;">There was an error with the request: ${error}</p>`;
+                });
+            });
+        </script>
+    </div>        
+    </div>
     <footer class="Footer">
         <div class="Footer__container">
             <div class="Footer__section"><p>Namskis Ravintola - Namskis Restaurant - Puukatu 2 - Helsinki 00100</p> </div>
@@ -69,3 +137,6 @@
             
         </div>
     </footer>
+</body>
+</html>
+    

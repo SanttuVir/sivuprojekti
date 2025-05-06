@@ -1,36 +1,142 @@
-<meta charset="UTF-8">
-<div class="lahjakortti">
-    <link rel="stylesheet" href="/sivu/lahjakortit/lahjakortti.css">
-    <div class="Lahjakortti__content">
-        <h1>Lahjakortit</h1>
-        <p>Osta lahjakortti lahjaksi tai itsellesi!</p>
-        <form class="lahjakortti-form" action="/sivu/lahjakortti." method="post">
-            <div class="form-group">
-                <label for="name">Nimi</label>
-                <input type="text" id="name" name="name" placeholder="Anna nimesi" required>
-            </div>
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>webbisivu</title>
 
-            <div class="form-group">
-                <label for="email">Sähköpostiosoite</label>
-                <input type="email" id="email" name="email" placeholder="Syötä sähköpostiosoitteesi" required>
-            </div>
+    <link rel="stylesheet" href="/sivu/navigointi.css">
 
-            <div class="form-group">
-                <label for="amount">Summa (€)</label>
-                <select id="amount" name="amount" required>
-                    <option value="25">25 €</option>
-                    <option value="50">50 €</option>
-                    <option value="100">100 €</option>
-                    <option value="200">200 €</option>
-                </select>
+    <link rel="stylesheet" href="/sivu/Etusivu/footer.css">
+    <link rel="stylesheet" href="/sivu/Etusivu/Info.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Almendra:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    </head>
+<body>
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="/" id="navbar__logo">Namskis</a>
+            <div class="navbar__toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
             </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item">
+                    <a href="/sivu/Etusivu/index.html" class="navbar__links"> 
+                        Kotisivu
+                    </a>
+                </li>
+                <li class="navbar__item">
+                    <li class="navbar__item dropdown">
+                        <span class="navbar__links dropdown-button">Menu</span>
+                        <div class="dropdown-content">
+                            <a href="/sivu/Menu/Alkuruoka.html">Alkuruoka</a>
+                            <a href="/sivu/Menu/Pääruoka.html">Pääruoka</a>
+                            <a href="/sivu/Menu/Jälkiruoka.html">Jälkiruoka</a>
+                       
+                </li>
+                <li class="navbar__item">
+                    <li class="navbar__item dropdown">
+                        <span class="navbar__links dropdown-button">Juomat</span>
+                    <div class="dropdown-content">
+                        <a href="/sivu/Juomat/Aperatiivit.html">Aperatiivit</a>
+                        <a href="/sivu/Juomat/Jälkiruokadrinkit.html">Jälkiruokadrinkit</a>
+                        <a href="/sivu/Juomat/Viinit.html">Viinit</a>
 
-            <div class="form-group">
-                <label for="message">Viesti (valinnainen)</label>
-                <textarea id="message" name="message" placeholder="Lisää viesti lahjakortille (valinnainen)"></textarea>
-            </div>
-
-            <button type="submit" class="button">Osta lahjakortti</button>
-        </form>
+                    
+                </li>
+                <li class="navbar__btn">
+                    <a href="/sivu/Palaute/Palaute.html" class="Button"> 
+                        Palaute
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="lahjakortti">
+        <link rel="stylesheet" href="/sivu/lahjakortit/lahjakortti.css">
+        <div class="Lahjakortti__content">
+            <h1>Lahjakortit</h1>
+            <p>Osta lahjakortti lahjaksi tai itsellesi!</p>
+            <form class="lahjakortti-form" action="maksu.html" method="get" onsubmit="return validateForm()">
+                <div class="form-group">
+                    <label for="name">Nimi</label>
+                    <input type="text" id="name" name="name" placeholder="Anna nimesi" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="email">Sähköpostiosoite</label>
+                    <input type="email" id="email" name="email" placeholder="Syötä sähköpostiosoitteesi" required>
+                </div>
+    
+                <div class="form-group">
+                    <label for="amount">Summa (€)</label>
+                    <label for="giftCardAmount">Valitse summa:</label>
+                    <select id="giftCardAmount" required>
+                        <option value="" disabled selected>Valitse summa</option>
+                        <option value="20">20 €</option>
+                        <option value="50">50 €</option>
+                        <option value="100">100 €</option>
+                    </select>
+                </div>
+    
+                <div class="form-group">
+                    <label for="message">Viesti (valinnainen)</label>
+                    <textarea id="message" name="message" placeholder="Lisää viesti lahjakortille (valinnainen)"></textarea>
+                </div>
+    
+                <!-- Osta lahjakortti vie maksu.html-sivulle -->
+                <button type="submit">Osta lahjakortti</button>
+            </form>
+    
+            <script>
+                function saveGiftCardAmount() {
+                    // Haetaan valittu summa
+                    const amount = document.getElementById('giftCardAmount').value;
+    
+                    // Tallennetaan summa localStorageen
+                    localStorage.setItem('giftCardAmount', amount);
+    
+                    // Siirrytään maksu-sivulle
+                    window.location.href = 'maksu.html';
+                }
+    
+                // Lomakkeen validointi
+                function validateForm() {
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const giftCardAmount = document.getElementById('giftCardAmount').value;
+    
+                    if (!name || !email || !giftCardAmount) {
+                        alert("Täytä kaikki kentät!");
+                        return false; // Estää lomakkeen lähettämisen
+                    }
+    
+                    // Tallennetaan lahjakortin summa localStorageen
+                    localStorage.setItem('giftCardAmount', giftCardAmount);
+    
+                    // Lomake lähetetään
+                    return true;
+                }
+            </script>
+        </div>
     </div>
+    
 </div>
+<footer class="Footer">
+    <div class="Footer__container">
+        <div class="Footer__section"><p>Namskis Ravintola - Namskis Restaurant - Puukatu 2 - Helsinki 00100</p> </div>
+        <div class="Footer__section">+358 044 5897357</div>
+        <div class="Footer__section">Puukatu 2</div>
+        <div class="Footer__section"></div>
+        
+    </div>
+</footer>
+
+<script src="/sivu/Etusivu/scrolli.js"></script>
+<script src="/sivu/app.js"></script>
+</body>
+</html>
+
