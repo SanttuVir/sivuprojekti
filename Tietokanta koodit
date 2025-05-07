@@ -106,3 +106,17 @@ CREATE TABLE submissions (
 ALTER TABLE submissions ADD ip_address VARCHAR(45) NOT NULL;
 ALTER TABLE submissions ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
 ..........................................................
+CREATE DATABASE IF NOT EXISTS lahjakortit CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- Käytä tietokantaa
+USE lahjakortit;
+
+-- Luo lahjakorttien taulu
+CREATE TABLE IF NOT EXISTS giftcards (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    amount DECIMAL(6,2) NOT NULL,
+    message TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
