@@ -1,7 +1,7 @@
 html, body {
     height: 100%;
     margin: 0;
-    position: relative; /* For absolute positioning inside */
+    position: relative;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -9,105 +9,102 @@ html, body {
     height: 100%;
     background-attachment: fixed;
     background-image: url(/sivu/images/tausta.jpeg);
+
+}
+.Footer {
+    margin-top: auto;
 }
 
-.message {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 1.2em;
-    color: black; /* Tekstin väri mustaksi */
-}
-
-.success {
-    color: black; /* Tekstin väri mustaksi myös onnistumisviestille */
-}
-
-.error {
-    color: black; /* Tekstin väri mustaksi myös virheviestille */
-}
-
-.payment-section {
-    background-color: white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    padding: 30px;
-    width: 100%;
-    max-width: 400px;
-    
+.center-wrapper {
+    display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
-    margin: 2vw auto;
-    color: rgb(255, 255, 255);
-   
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
-    max-width: 1200px; /* Center the section with a max width */
+    height: auto; 
+    padding-top: 300px;
+    padding-bottom: 300px;
+  }
+
+.payment-form {
+    background: white;
+    padding: 20px 25px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     
-}
+    
+    
+  }
 
-h2 {
+  .payment-form h2 {
     text-align: center;
-    color: #333;
     margin-bottom: 20px;
-}
+  }
 
-.gift-card-amount {
+  .payment-icons {
+    display: flex;
+    justify-content: space-around;
     margin-bottom: 20px;
-    text-align: center;
-    font-size: 1.2em;
-    color: #4CAF50;
-}
+  }
 
-.form-group {
-    margin-bottom: 15px;
-}
+  .payment-icons img {
+    height: 30px;
+  }
 
-.form-group label {
-    display: block;
-    font-weight: 500;
-    margin-bottom: 5px;
-    color: #555;
-}
-
-.form-group input {
+  .payment-form input {
     width: 100%;
     padding: 10px;
-    font-size: 1em;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    box-sizing: border-box;
-    background-color: #f9f9f9;
-}
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
 
-.form-group input:focus {
-    border-color: #4CAF50;
-    background-color: #fff;
-    outline: none;
-}
-
-.submit-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #4CAF50;
+  .payment-form button {
+    background-color: #f4a52e;
     color: white;
+    padding: 12px;
+    width: 100%;
     border: none;
-    border-radius: 5px;
-    font-size: 1.1em;
+    border-radius: 4px;
+    font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+  }
+
+  .payment-form button:hover {
+    background-color: #d68f1e;
+  }
+
+  .message {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+
+  #receipt {
+    display: none;
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
 }
 
-.submit-button:hover {
-    background-color: #45a049;
+#receipt h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
 }
 
-/* Responsiivisuus */
-@media (max-width: 480px) {
-    .payment-section {
-        padding: 20px;
-    }
+#receipt p {
+    margin: 8px 0;
+    font-size: 14px;
+}
 
-    h2 {
-        font-size: 1.1em;
-    }
+#receipt strong {
+    display: inline-block;
+    width: 100px;
 }

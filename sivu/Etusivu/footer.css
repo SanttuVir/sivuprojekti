@@ -6,7 +6,7 @@ html, body {
 
 /* Your existing footer styling */
 .Footer {
-    background-color: #333333; /* Dark background for the footer */
+    background-color: #333333d3; /* Dark background for the footer */
     color: white; /* Text color */
     padding: 20px 0; /* Space around the footer content */
     text-align: center; /* Align text to the center */

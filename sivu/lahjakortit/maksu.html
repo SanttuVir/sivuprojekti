@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Webbisivu</title>
-
+    <link rel="stylesheet" href="/sivu/Menu/Menufooter.css">
     <link rel="stylesheet" href="/sivu/navigointi.css">
-    <link rel="stylesheet" href="/sivu/Etusivu/footer.css">
     <link rel="stylesheet" href="/sivu/Lahjakortit/maksu.css">
     <link rel="stylesheet" href="/sivu/Etusivu/Info.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -48,133 +47,190 @@
             </ul>
         </div>
     </nav>
-
-    
-    <div class="payment-section">
-        <!-- Lahjakortin summa -->
-        <div class="gift-card-amount">
-            <h2>Lahjakortin summa: <span id="giftCardAmount">Loading...</span></h2>
+    <div class="Tausta">
+    <div class="center-wrapper">
+        <div class="payment-form">
+            <h2>Maksutapahtuma</h2>
+            <div class="payment-icons">
+                <img src="https://img.icons8.com/color/48/visa.png" alt="Visa">
+            </div>
+            <p>Maksettava summa: <span id="giftAmountDisplay">-</span> €</p>
+            <input type="text" id="cardNumber" placeholder="Valid Card Number" maxlength="19">
+            <input type="text" id="expiryDate" placeholder="MM / YY" maxlength="7">
+            <input type="text" id="cvc" placeholder="CVC" maxlength="3">
+            <input type="text" id="cardOwner" placeholder="Card Owner Names">
+            <button onclick="processPayment()">Hyväksy maksu</button>
+            <div class="message" id="messageBox"></div>
         </div>
-
-        <!-- Korttimaksu -->
-        <div class="form-group">
-            <label for="cardNumber">Kortin numero</label>
-            <input type="text" id="cardNumber" name="cardNumber" placeholder="Syötä kortin numero" maxlength="19" required>
-        </div>
-
-        <div class="form-group">
-            <label for="expiryDate">Eräpäivä</label>
-            <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" maxlength="5" required>
-        </div>
-
-        <div class="form-group">
-            <label for="cvv">CVV</label>
-            <input type="text" id="cvv" name="cvv" placeholder="CVV" maxlength="3" required>
-        </div>
-
-        <div class="form-group">
-            <button type="submit" class="submit-button" onclick="processPayment()">Maksa</button>
-        </div>
-
-        <!-- Ilmoitusviesti -->
-        <div id="paymentMessage" class="message"></div>
     </div>
+    
 
+    <div id="receipt" style="display: none;">
+        <h3>Kuitti</h3>
+        <p><strong>Nimi:</strong> <span id="receiptName"></span></p>
+        <p><strong>Email:</strong> <span id="receiptEmail"></span></p>
+        <p><strong>Summa:</strong> <span id="receiptAmount"></span> €</p>
+        <p><strong>Viesti:</strong> <span id="receiptMessage"></span></p>
+        <p><strong>Päivämäärä:</strong> <span id="receiptDate"></span></p>
+    </div>
+    
     <script>
-        // Haetaan lahjakortin summa localStorage:sta
-        const giftCardAmount = localStorage.getItem('giftCardAmount');
-        
-        // Jos summa löytyy, näytetään se
-        if (giftCardAmount) {
-            document.getElementById('giftCardAmount').innerText = `${giftCardAmount} €`;
-        } else {
-            document.getElementById('giftCardAmount').innerText = "Ei valittu summa";
-        }
-
-        // Kortin numeron jakaminen neljään osaan
-        const cardInput = document.getElementById('cardNumber');
-        
-        cardInput.addEventListener('input', function (e) {
-            let cardValue = cardInput.value.replace(/\D/g, ''); // Poistetaan kaikki ei-numeraaliset merkit
-            cardValue = cardValue.substring(0, 16); // Rajoitetaan 16 merkkiin
-
-            // Jakaa kortin numeron neljään osaan ja lisää välilyönnit
-            const formattedCardValue = cardValue.replace(/(\d{4})(?=\d)/g, '$1 ');
-
-            cardInput.value = formattedCardValue;
-        });
-
-        // Eräpäivän käsittely
+        const cardNumberInput = document.getElementById('cardNumber');
         const expiryDateInput = document.getElementById('expiryDate');
+        const cvcInput = document.getElementById('cvc');
+        const amount = localStorage.getItem('giftCardAmount');
         
+        if (amount) {
+            document.getElementById('giftAmountDisplay').textContent = amount;
+        } else {
+            document.getElementById('giftAmountDisplay').textContent = 'Ei valittu';
+        }
+    
+     
+        cardNumberInput.addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '').substring(0, 16);
+            value = value.match(/.{1,4}/g)?.join(' ') || '';
+            e.target.value = value;
+        });
+    
+  
         expiryDateInput.addEventListener('input', function (e) {
-            let expiryValue = expiryDateInput.value.replace(/\D/g, ''); // Poistetaan kaikki ei-numeeraaliset merkit
-            expiryValue = expiryValue.substring(0, 4); // Rajoitetaan 4 merkkiin
-
-            // Lisätään väli '/' merkin jälkeen
-            if (expiryValue.length > 2) {
-                expiryValue = expiryValue.substring(0, 2) + '/' + expiryValue.substring(2, 4);
+            let value = e.target.value.replace(/\D/g, '').substring(0, 4);
+            if (value.length > 2) {
+                value = value.substring(0, 2) + ' / ' + value.substring(2);
             }
-
-            expiryDateInput.value = expiryValue;
+            e.target.value = value;
         });
+    
 
-        // CVV:n käsittely
-        const cvvInput = document.getElementById('cvv');
-        
-        cvvInput.addEventListener('input', function (e) {
-            let cvvValue = cvvInput.value.replace(/\D/g, ''); // Poistetaan kaikki ei-numeraaliset merkit
-            cvvValue = cvvValue.substring(0, 3); // Rajoitetaan 3 merkkiin
-
-            cvvInput.value = cvvValue;
+        cvcInput.addEventListener('input', function (e) {
+            e.target.value = e.target.value.replace(/\D/g, '').substring(0, 3);
         });
-
-        // Simuloitu maksutapahtuma
+    
         function processPayment() {
-            const cardNumber = document.getElementById('cardNumber').value;
-            const expiryDate = document.getElementById('expiryDate').value;
-            const cvv = document.getElementById('cvv').value;
-
-            // Tarkistetaan, että kaikki kentät on täytetty (perusvalidointi)
-            if (cardNumber === "" || expiryDate === "" || cvv === "") {
-                document.getElementById('paymentMessage').innerText = "Täytä kaikki kentät!";
-                document.getElementById('paymentMessage').className = "message error";
+            const cardNumber = cardNumberInput.value.replace(/\s/g, '');
+            const expiryDate = expiryDateInput.value.trim();
+            const cvc = cvcInput.value.trim();
+            const cardOwner = document.getElementById('cardOwner').value.trim();
+            const messageBox = document.getElementById('messageBox');
+    
+            if (!/^\d{16}$/.test(cardNumber)) {
+                messageBox.textContent = "Virhe: Korttinumero ei ole kelvollinen (16 numeroa).";
+                messageBox.style.color = "red";
                 return;
             }
-
-            // Simuloidaan maksun hyväksyminen (esim. satunnaisesti onnistuu tai ei)
-            const isPaymentSuccessful = Math.random() > 0.3;  // 70% todennäköisyys onnistua
-
-            if (isPaymentSuccessful) {
-                document.getElementById('paymentMessage').innerText = "Maksu onnistui! Kiitos ostoksestasi.";
-                document.getElementById('paymentMessage').className = "message success";
-            } else {
-                document.getElementById('paymentMessage').innerText = "Maksu epäonnistui. Yritä uudelleen.";
-                document.getElementById('paymentMessage').className = "message error";
+    
+            if (!/^(0[1-9]|1[0-2]) ?\/ ?\d{2}$/.test(expiryDate)) {
+                messageBox.textContent = "Virhe: Vanhentumispäivän muoto on virheellinen (MM / YY).";
+                messageBox.style.color = "red";
+                return;
             }
+    
+            const parts = expiryDate.replace(/\s/g, '').split('/');
+            const inputMonth = parseInt(parts[0], 10);
+            const inputYear = 2000 + parseInt(parts[1], 10); 
+    
+            const now = new Date();
+            const currentMonth = now.getMonth() + 1; 
+            const currentYear = now.getFullYear();
+    
+            if (inputYear < currentYear || (inputYear === currentYear && inputMonth < currentMonth)) {
+                messageBox.textContent = "Virhe: Kortti on vanhentunut.";
+                messageBox.style.color = "red";
+                return;
+            }
+    
+            if (!/^\d{3}$/.test(cvc)) {
+                messageBox.textContent = "Virhe: CVC-koodi pitää olla 3 numeroa.";
+                messageBox.style.color = "red";
+                return;
+            }
+    
+            if (cardOwner.length < 3) {
+                messageBox.textContent = "Virhe: Kortin omistajan nimi on liian lyhyt.";
+                messageBox.style.color = "red";
+                return;
+            }
+    
+    
+            messageBox.textContent = "Käsitellään maksua...";
+            messageBox.style.color = "black";
+    
+            setTimeout(() => {
+                messageBox.textContent = "Maksu onnistui! Kiitos.";
+                messageBox.style.color = "green";
+    
+         
+                fetch('/sivu/lahjakortit/saveGiftCard.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        name: localStorage.getItem('giftCardName'),
+                        email: localStorage.getItem('giftCardEmail'),
+                        amount: localStorage.getItem('giftCardAmount'),
+                        message: localStorage.getItem('giftCardMessage')
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        messageBox.textContent = "Maksu hyväksytty!";
+                        messageBox.style.color = "green";
+    
+                        
+                        document.getElementById('receiptName').textContent = localStorage.getItem('giftCardName');
+                        document.getElementById('receiptEmail').textContent = localStorage.getItem('giftCardEmail');
+                        document.getElementById('receiptAmount').textContent = localStorage.getItem('giftCardAmount');
+                        document.getElementById('receiptMessage').textContent = localStorage.getItem('giftCardMessage');
+                        document.getElementById('receiptDate').textContent = new Date().toLocaleString();
+    
+                      
+
+setTimeout(() => {
+    document.querySelector('.payment-form').style.display = 'none';
+    document.getElementById('receipt').style.display = 'block';
+}, 1000); 
+
+
+                    } else {
+                        messageBox.textContent = "Maksu onnistui, mutta tietojen tallennus epäonnistui.";
+                        messageBox.style.color = "orange";
+                    }
+                })
+                .catch(error => {
+                    console.error("Virhe tallennuksessa:", error);
+                    messageBox.textContent = "Tiedonsiirrossa tapahtui virhe.";
+                    messageBox.style.color = "red";
+                });
+            }, 2000);
         }
     </script>
-
-    <footer class="Footer">
-        <div class="Footer__container">
-            <div class="Footer__section"><p>Namskis Ravintola - Namskis Restaurant - Puukatu 2 - Helsinki 00100</p></div>
-            <div class="Footer__section">+358 044 5897357</div>
-            <div class="Footer__section">Puukatu 2</div>
-        </div>
-    </footer>
+    
+      
+      
 
     <script>
-        // Haetaan lahjakortin summa localStorage:sta
 
-        
-        // Jos summa löytyy, näytetään se
+
+
         if (giftCardAmount) {
             document.getElementById('giftCardAmount').innerText = `${giftCardAmount} €`;
         } else {
             document.getElementById('giftCardAmount').innerText = "Ei valittu summa";
         }
     </script>
-
+    </div>
+    <footer class="Footer">
+        <div class="Footer__container">
+            <div class="Footer__section"><p>Namskis Ravintola - Namskis Restaurant - Puukatu 2 - Helsinki 00100</p> </div>
+            <div class="Footer__section">+358 044 5897357</div>
+            <div class="Footer__section">Puukatu 2</div>
+            <div class="Footer__section"></div>
+            
+        </div>
+    </footer>
     <script src="/sivu/Etusivu/scrolli.js"></script>
     <script src="/sivu/app.js"></script>
 </body>

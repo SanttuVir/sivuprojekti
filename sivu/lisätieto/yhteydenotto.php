@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
         // Check if required fields are not empty
         if (empty($name) || empty($email) || empty($message)) {
-            echo json_encode(["success" => false, "message" => "Please fill in all required fields."]);
+            echo json_encode(["success" => false, "message" => "Täytä kaikki kentät"]);
             exit();
         }
 
@@ -55,7 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
         // If the IP address already exists, block further submissions
         if ($stmt->num_rows > 0) {
-            echo json_encode([ "success" => false, "message" => "You have already submitted a form from this IP address." ]);
+            echo json_encode([ "success" => false, "message" => "Olet ottanut jo yhteyttä." ]);
             exit();
         }
 
@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
 
         // Execute the query and send the response
         if ($stmt->execute()) {
-            echo json_encode([ "success" => true, "message" => "Thank you for your message, $name! We will get back to you soon." ]);
+            echo json_encode([ "success" => true, "message" => "Kiitos yhteydenotosta, $name! Vastaamme mahdollisimman pian!" ]);
         } else {
             echo json_encode([ "success" => false, "message" => "Error: " . $stmt->error ]);
         }

@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="/sivu/navigointi.css">
 
-    <link rel="stylesheet" href="/sivu/Etusivu/footer.css">
+    <link rel="stylesheet" href="/sivu/Menu/Menufooter.css">
     <link rel="stylesheet" href="/sivu/Etusivu/Info.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -105,21 +105,25 @@
     
                 // Lomakkeen validointi
                 function validateForm() {
-                    const name = document.getElementById('name').value;
-                    const email = document.getElementById('email').value;
-                    const giftCardAmount = document.getElementById('giftCardAmount').value;
-    
-                    if (!name || !email || !giftCardAmount) {
-                        alert("Täytä kaikki kentät!");
-                        return false; // Estää lomakkeen lähettämisen
-                    }
-    
-                    // Tallennetaan lahjakortin summa localStorageen
-                    localStorage.setItem('giftCardAmount', giftCardAmount);
-    
-                    // Lomake lähetetään
-                    return true;
-                }
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const giftCardAmount = document.getElementById('giftCardAmount').value;
+  const message = document.getElementById('message').value;
+
+  if (!name || !email || !giftCardAmount) {
+    alert("Täytä kaikki kentät!");
+    return false;
+  }
+
+  // Tallennetaan tiedot localStorageen
+  localStorage.setItem('giftCardAmount', giftCardAmount);
+  localStorage.setItem('giftCardName', name);
+  localStorage.setItem('giftCardEmail', email);
+  localStorage.setItem('giftCardMessage', message);
+
+  return true;
+}
+
             </script>
         </div>
     </div>
