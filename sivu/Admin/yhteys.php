@@ -16,7 +16,7 @@ if ($conn->connect_error) {
 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     // Fetch messages from the database
-    $stmt = $conn->prepare("SELECT id, name, email, subject, message, created_at FROM submissions ORDER BY created_at DESC");
+    $stmt = $conn->prepare("SELECT id, name, email, subject, message, phone, created_at FROM submissions ORDER BY created_at DESC");
     
     if (!$stmt) {
         echo json_encode(["success" => false, "message" => "Failed to prepare statement: " . $conn->error]);
